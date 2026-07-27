@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Pertumbuhan dan Perkembangan Hewan &amp; Tumbuhan | IPA Kelas IX</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<!-- Canvas untuk efek partikel background -->
+<canvas id="bgCanvas"></canvas>
+
+<body>
+
+  <div class="app">
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-mark" aria-hidden="true">🌿</span>
+        <span class="logo-text">Pertumbuhan &amp; Perkembangan</span>
+      </div>
+
+      <a class="home-link" href="index.html">
+    Home
+</a>
+    </header>
+
+    <!-- ===================== SLIDE VIEWPORT ===================== -->
+    <main class="slide-viewport">
+
+      <!-- ================= SLIDE 1 — COVER ================= -->
+      <section class="slide is-active" data-slide="0">
+        <div class="hero">
+
+          <!-- Kolom Kiri -->
+          <div class="hero-content">
+            <span class="hero-eyebrow">
+              <span class="eyebrow-dot"></span>
+              Media Presentasi Interaktif
+            </span>
+
+            <h1 class="hero-title">
+              Pertumbuhan dan Perkembangan<br />
+              <span class="hero-title-accent">Hewan &amp; Tumbuhan</span>
+            </h1>
+
+            <p class="hero-subtitle">IPA Kelas IX SMP</p>
+
+            <div class="group-card">
+              <span class="group-label">Disusun oleh</span>
+              <span class="group-name">Kelompok Sukiliyar</span>
+              <ul class="group-members">
+                <li class="member-chip">
+                  <span class="member-avatar">1</span>
+                  <span>Achmad sea ega</span>
+                </li>
+                <li class="member-chip">
+                  <span class="member-avatar">6</span>
+                  <span>Bagas dwi kurniawan</span>
+                </li>
+                <li class="member-chip">
+                  <span class="member-avatar">24</span>
+                  <span>M.tsaqif annizar</span>
+                </li>
+                <li class="member-chip">
+                  <span class="member-avatar">28</span>
+                  <span>Nurjohan fannani</span>
+                </li>
+              </ul>
+            </div>
+
+            <button class="btn btn-primary btn-large" type="button" data-next>
+              <span>Mulai Presentasi mpruy</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Kolom Kanan — Ilustrasi -->
+          <div class="hero-image">
+            <div class="hero-image-glow"></div>
+
+            <div class="hero-illustration-card">
+              <svg class="growth-svg" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi pertumbuhan hewan dan tumbuhan">
+                <circle cx="160" cy="160" r="132" stroke="#7EC8E3" stroke-width="1.2" stroke-dasharray="3 9" opacity="0.5"/>
+
+                <!-- matahari -->
+                <circle cx="240" cy="72" r="22" fill="#FFC94D" opacity="0.9"/>
+                <g stroke="#FFC94D" stroke-width="2.4" stroke-linecap="round" opacity="0.7">
+                  <line x1="240" y1="34" x2="240" y2="24"/>
+                  <line x1="278" y1="72" x2="288" y2="72"/>
+                  <line x1="266" y1="98" x2="273" y2="105"/>
+                  <line x1="266" y1="46" x2="273" y2="39"/>
+                </g>
+
+                <!-- tanah -->
+                <path d="M40 250 Q160 232 280 250 L280 262 Q160 246 40 262 Z" fill="#2E7D46" opacity="0.18"/>
+
+                <!-- batang & daun tumbuh -->
+                <path d="M120 250 C120 210 122 175 128 150 C132 132 142 118 158 108" stroke="#2E7D46" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <path d="M128 150c-14-4-24-16-24-30 12 0 24 8 28 20" fill="#7FC79B"/>
+                <path d="M136 190c-16-2-28-14-30-28 14-2 28 6 33 18" fill="#7FC79B"/>
+                <ellipse cx="160" cy="100" rx="20" ry="14" fill="#2E7D46" transform="rotate(-18 160 100)"/>
+
+                <!-- kupu-kupu -->
+                <g transform="translate(206,150)">
+                  <path d="M0 0c-14-16-34-12-34 2 0 12 16 18 34 24 18-6 34-12 34-24 0-14-20-18-34-2Z" fill="#7EC8E3" transform="scale(0.62)"/>
+                  <line x1="0" y1="-6" x2="0" y2="16" stroke="#1F3B32" stroke-width="1.6" transform="scale(0.62)"/>
+                </g>
+
+                <!-- telur / bibit -->
+                <ellipse cx="90" cy="252" rx="12" ry="15" fill="#FFC94D" opacity="0.85"/>
+              </svg>
+            </div>
+
+            <div class="floating-chip chip-1">🌱 Tumbuhan</div>
+            <div class="floating-chip chip-2">🦋 Hewan</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 2 — PILIH MATERI ================= -->
+      <section class="slide" data-slide="1">
+        <div class="materi-wrapper">
+
+          <button class="back-link" type="button" data-goto="0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            
+          </button>
+
+          <span class="hero-eyebrow">
+            <span class="eyebrow-dot"></span>
+            Langkah 2 dari 2
+          </span>
+
+          <h2 class="materi-title">Pilih Materi Wok</h2>
+          <p class="materi-subtitle">Mau yang mana dulu Mpruy</p>
+
+          <div class="materi-cards">
+            <a class="materi-card" href="hewan.html">
+  <span class="materi-icon">🦋</span>
+  <span class="materi-name">HEWAN</span>
+  <span class="materi-desc">
+    Metamorfosis, siklus hidup, dan perkembangan hewan
+  </span>
+
+  <span class="materi-arrow">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      <path d="M5 12h14M13 6l6 6-6 6"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+    </svg>
+  </span>
+  <img src="gokil.jpg" alt="tes" class="materi-sticker sticker-hewan" loading="lazy" aria-hidden="true">
+</a>
+</a>
+
+            <a class="materi-card" href="tumbuhan.html">
+              <span class="materi-icon">🌱</span>
+              <span class="materi-name">TUMBUHAN</span>
+              <span class="materi-desc">Perkecambahan, pertumbuhan primer, dan sekunder</span>
+              <span class="materi-arrow" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <img src="santaidulugaksi.jpg" alt="" class="materi-sticker sticker-tumbuhan" loading="lazy" aria-hidden="true">
+</a>
+              </span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAMBAHKAN SETELAH SLIDE MENU -->
+
+
+    <!-- ===================== PROGRESS BAR ===================== -->
+    <div class="progress-nav" aria-label="Progress presentasi">
+      <span class="progress-step-label" data-label-for="0">01 · Cover</span>
+
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+        <div class="progress-marker"></div>
+      </div>
+
+      <span class="progress-step-label" data-label-for="1">02 · Pilih Materi</span>
+      </div>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+      &copy; 2026 Pertumbuhan &amp; Perkembangan Hewan dan Tumbuhan — Kelompok 4
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

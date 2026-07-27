@@ -1,0 +1,4425 @@
+/* =====================================================
+   RESET & BASE
+===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* --- Warna --- */
+  --color-bg-1: #F3F9FC;
+  --color-bg-2: #EAF4EE;
+  --color-primary: #2E7D46;
+  --color-primary-dark: #205933;
+  --color-secondary: #7FC79B;
+  --color-accent: #7EC8E3;
+  --color-highlight: #FFC94D;
+  --color-text: #1F2D26;
+  --color-text-soft: rgba(31, 45, 38, 0.66);
+  --color-glass: rgba(255, 255, 255, 0.5);
+  --color-glass-border: rgba(255, 255, 255, 0.65);
+
+  /* --- Tipografi --- */
+  --font-display: 'Poppins', sans-serif;
+
+  /* --- Radius --- */
+  --radius-lg: 30px;
+  --radius-md: 20px;
+  --radius-sm: 14px;
+
+  /* --- Motion --- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur: 0.4s;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(126, 200, 227, 0.14), transparent 42%),
+    radial-gradient(circle at 92% 88%, rgba(255, 201, 77, 0.12), transparent 40%),
+    linear-gradient(165deg, var(--color-bg-1) 0%, var(--color-bg-2) 55%, var(--color-bg-1) 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* =====================================================
+   APP SHELL — fullscreen 100vw x 100vh, no scroll
+===================================================== */
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  overflow: hidden;
+  padding: 0 clamp(28px, 4.2vw, 68px);
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(18px, 2.6vh, 30px) 0 clamp(8px, 1.4vh, 16px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(127, 199, 155, 0.22), rgba(46, 125, 70, 0.1));
+  border: 1px solid rgba(46, 125, 70, 0.14);
+}
+
+.logo-text {
+  font-weight: 600;
+  font-size: clamp(0.9rem, 1.05vw, 1.05rem);
+  color: var(--color-primary-dark);
+}
+
+.home-link {
+  font-weight: 500;
+  font-size: 0.92rem;
+  color: var(--color-text-soft);
+  padding: 9px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(46, 125, 70, 0.16);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+  text-decoration:none;
+}
+
+.home-link:hover {
+  color: var(--color-primary-dark);
+  background: rgba(255, 255, 255, 0.75);
+  transform: translateY(-1px);
+}
+
+/* =====================================================
+   SLIDE VIEWPORT — perpindahan dikontrol JS, bukan scroll
+===================================================== */
+.slide-viewport {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  opacity: 0;
+}
+
+.slide.is-active {
+  display: flex;
+  align-items: center;
+  animation: slideEnter var(--dur) var(--ease) forwards;
+}
+
+@keyframes slideEnter {
+  from { opacity: 0; transform: translateY(16px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* =====================================================
+   HERO (Slide 1)
+===================================================== */
+.hero {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(10px, 1.4vh, 16px);
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+  background: rgba(127, 199, 155, 0.2);
+  border: 1px solid rgba(46, 125, 70, 0.16);
+  padding: 7px 15px;
+  border-radius: 999px;
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-highlight);
+  box-shadow: 0 0 0 4px rgba(255, 201, 77, 0.24);
+}
+
+.hero-title {
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3.3vw, 3.1rem);
+  line-height: 1.14;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.hero-title-accent {
+  background: linear-gradient(92deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-subtitle {
+  font-weight: 400;
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  color: var(--color-text-soft);
+}
+
+/* --- Group card --- */
+.group-card {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(14px, 1.8vh, 20px) clamp(18px, 2vw, 24px);
+  border-radius: var(--radius-md);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 34px -22px rgba(31, 45, 38, 0.28);
+}
+
+.group-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+}
+
+.group-name {
+  font-size: clamp(1rem, 1.15vw, 1.2rem);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.group-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.member-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(46, 125, 70, 0.14);
+  padding: 6px 12px 6px 6px;
+  border-radius: 999px;
+}
+
+.member-avatar {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+/* --- Button --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: var(--radius-sm);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  box-shadow: 0 12px 26px -10px rgba(46, 125, 70, 0.55);
+}
+
+.btn-large {
+  margin-top: 6px;
+  padding: 18px 36px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 16px 32px -10px rgba(46, 125, 70, 0.6);
+}
+
+.btn-primary svg {
+  transition: transform var(--dur) var(--ease);
+}
+
+.btn-primary:hover svg {
+  transform: translateX(3px);
+}
+
+/* =====================================================
+   HERO IMAGE / ILLUSTRATION
+===================================================== */
+.hero-image {
+  position: relative;
+  height: min(58vh, 480px);
+  display: grid;
+  place-items: center;
+}
+
+.hero-image-glow {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(127, 199, 155, 0.24), rgba(255, 201, 77, 0.08) 55%, transparent 75%);
+  filter: blur(6px);
+}
+
+.hero-illustration-card {
+  position: relative;
+  width: min(90%, 380px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-lg);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 26px 50px -22px rgba(31, 45, 38, 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.growth-svg {
+  width: 78%;
+  height: 78%;
+}
+
+.floating-chip {
+  position: absolute;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 9px 16px;
+  border-radius: 999px;
+  box-shadow: 0 12px 24px -12px rgba(31, 45, 38, 0.25);
+  animation: floatSlow 5.5s ease-in-out infinite;
+}
+
+.chip-1 { top: 5%; left: -3%; animation-delay: 0.3s; }
+.chip-2 { bottom: 7%; right: -5%; animation-delay: 1s; }
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* =====================================================
+   SLIDE 2 — PILIH MATERI
+===================================================== */
+.materi-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.6vh, 16px);
+  text-align: center;
+}
+
+.back-link {
+  position: absolute;
+  top: clamp(14px, 2vh, 22px);
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--color-text-soft);
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.back-link:hover {
+  color: var(--color-primary-dark);
+  transform: translateX(-2px);
+}
+
+.materi-title {
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3.4vw, 3rem);
+  letter-spacing: -0.4px;
+  margin-top: 6px;
+}
+
+.materi-subtitle {
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  color: var(--color-text-soft);
+  margin-bottom: clamp(10px, 2vh, 20px);
+}
+
+.materi-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(240px, 340px));
+  gap: clamp(20px, 3vw, 40px);
+}
+
+.materi-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  padding: clamp(26px, 3vw, 36px) clamp(24px, 2.8vw, 32px);
+  border-radius: var(--radius-lg);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 40px -22px rgba(31, 45, 38, 0.25);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur) var(--ease);
+  overflow: hidden;
+}
+
+.materi-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg, rgba(127, 199, 155, 0.16), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+.materi-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 28px 50px -20px rgba(31, 45, 38, 0.3);
+}
+
+.materi-card:hover::before {
+  opacity: 1;
+}
+
+.materi-icon {
+  font-size: 2.4rem;
+}
+
+.materi-name {
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.4px;
+  color: var(--color-primary-dark);
+}
+
+.materi-desc {
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--color-text-soft);
+  line-height: 1.5;
+}
+
+.materi-arrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-top: 4px;
+  border-radius: 50%;
+  color: var(--color-primary-dark);
+  background: rgba(127, 199, 155, 0.24);
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.materi-card:hover .materi-arrow {
+  transform: translateX(4px);
+  background: rgba(127, 199, 155, 0.4);
+}
+
+/* =====================================================
+   PROGRESS BAR
+===================================================== */
+.progress-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  padding: clamp(6px, 1vh, 10px) 0;
+}
+
+.progress-step-label {
+  flex-shrink: 0;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--color-text-soft);
+  transition: color var(--dur) var(--ease);
+}
+
+.progress-track {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(46, 125, 70, 0.14);
+}
+
+.progress-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transition: width var(--dur) var(--ease);
+}
+
+.progress-marker {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--color-primary);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 10px -2px rgba(46, 125, 70, 0.4);
+  transition: left var(--dur) var(--ease);
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+.footer {
+  text-align: center;
+  padding: 2px 0 clamp(14px, 1.8vh, 20px);
+  font-size: 0.75rem;
+  color: rgba(31, 45, 38, 0.42);
+}
+
+/* =====================================================
+   RESPONSIVE — TV landscape utama, tetap nyaman di laptop
+===================================================== */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  .hero-image {
+    height: min(30vh, 260px);
+    order: -1;
+  }
+
+  .materi-cards {
+    grid-template-columns: minmax(220px, 340px);
+  }
+}
+
+@media (max-width: 640px) {
+  .logo-text { display: none; }
+  .progress-step-label { display: none; }
+}
+
+/* TAMBAHKAN DI AKHIR CSS */
+/* =====================================================
+   FOKUS & KLIK — tanpa outline biru bawaan browser
+===================================================== */
+button:focus,
+button:focus-visible,
+.materi-card:focus,
+.materi-card:focus-visible,
+.intro-card:focus,
+.intro-card:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.home-link:active,
+.back-link:active,
+.btn:active,
+.materi-card:active,
+.intro-card:active {
+  transform: scale(0.97);
+}
+
+/* =====================================================
+   SLIDE 3 — PENGERTIAN HEWAN (intro card)
+===================================================== */
+.intro-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.6vh, 16px);
+  text-align: center;
+}
+
+.intro-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(14px, 2.4vh, 26px);
+  padding: clamp(38px, 5vh, 56px) clamp(48px, 6vw, 76px);
+  border-radius: var(--radius-lg);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 22px 44px -22px rgba(31, 45, 38, 0.28);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.intro-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 30px 54px -22px rgba(31, 45, 38, 0.32);
+}
+
+.intro-card.is-pressed {
+  animation: introPress 0.35s var(--ease);
+}
+
+@keyframes introPress {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.98); }
+  100% { transform: scale(1.02); }
+}
+
+.intro-icon {
+  font-size: 2.6rem;
+}
+
+.intro-question {
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  color: var(--color-primary-dark);
+}
+
+.intro-hint {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-soft);
+}
+
+/* =====================================================
+   MODAL — POPUP MATERI
+===================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 4vh, 40px);
+  background: rgba(31, 45, 38, 0.38);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur) var(--ease), visibility var(--dur) var(--ease);
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box {
+  position: relative;
+  width: min(100%, 760px);
+  max-height: 88vh;
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vh, 20px);
+  padding: clamp(28px, 3.4vw, 40px);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 34px 70px -24px rgba(31, 45, 38, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transform: scale(0.92);
+  opacity: 0;
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+
+.modal-overlay.is-open .modal-box {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.modal-close-x {
+  position: absolute;
+  top: clamp(16px, 2vw, 22px);
+  right: clamp(16px, 2vw, 22px);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--color-text-soft);
+  background: rgba(46, 125, 70, 0.1);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.modal-close-x:hover {
+  background: rgba(46, 125, 70, 0.18);
+  color: var(--color-primary-dark);
+  transform: rotate(90deg);
+}
+
+.modal-title {
+  font-weight: 800;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  color: var(--color-text);
+  padding-right: 40px;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(20px, 2.6vw, 32px);
+  align-items: start;
+}
+
+.modal-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-desc {
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: var(--color-text-soft);
+}
+
+.trait-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: rgba(127, 199, 155, 0.14);
+  border: 1px solid rgba(46, 125, 70, 0.14);
+}
+
+.trait-card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.trait-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trait-list li {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.modal-image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 220px;
+  height: 100%;
+  border-radius: var(--radius-md);
+  background: rgba(126, 200, 227, 0.14);
+  border: 1.5px dashed rgba(46, 125, 70, 0.28);
+  color: var(--color-text-soft);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 20px;
+}
+
+.placeholder-icon {
+  font-size: 2rem;
+  opacity: 0.6;
+}
+
+.modal-close-btn {
+  align-self: center;
+  color: var(--color-primary-dark);
+  background: rgba(127, 199, 155, 0.22);
+  border: 1px solid rgba(46, 125, 70, 0.18);
+  padding: 12px 32px;
+}
+
+.modal-close-btn:hover {
+  background: rgba(127, 199, 155, 0.36);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-image-placeholder {
+    min-height: 140px;
+  }
+}
+.materi-card {
+    text-decoration: none;
+    color: inherit;
+}
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* =====================================================
+   HEWAN.HTML — SEMUA SLIDE MATERI HEWAN
+   (Pengertian Hewan, Embrio, dan slide-slide berikutnya)
+   Semua elemen baru khusus halaman ini memakai prefix
+   class "hewan-" agar tidak bentrok dengan komponen lain.
+===================================================== */
+
+/* --- Wrapper tiap slide --- */
+.hewan-slide {
+  position: relative;
+  width: 100%;
+}
+
+/* --- Link kembali ke halaman pilih materi --- */
+.hewan-back-link {
+  position: absolute;
+  top: clamp(14px, 2vh, 22px);
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--color-text-soft);
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.hewan-back-link:hover {
+  color: var(--color-primary-dark);
+  transform: translateX(-2px);
+}
+
+/* --- Layout 2 kolom: teks & gambar --- */
+.hewan-hero {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+}
+
+/* Varian dibalik: gambar tampil di kiri, teks di kanan */
+.hewan-hero--reverse {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+}
+
+.hewan-hero--reverse .hewan-content {
+  order: 2;
+}
+
+.hewan-hero--reverse .hewan-image {
+  order: 1;
+}
+
+/* --- Kolom teks --- */
+.hewan-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(10px, 1.5vh, 18px);
+  padding-top: clamp(30px, 4vh, 44px);
+}
+
+.hewan-title {
+  font-weight: 800;
+  font-size: clamp(2.3rem, 4vw, 3.5rem);
+  line-height: 1.14;
+  letter-spacing: -0.4px;
+  color: var(--color-text);
+}
+
+.hewan-desc {
+  font-size: clamp(1.15rem, 1.4vw, 1.45rem);
+  line-height: 1.8;
+  color: var(--color-text-soft);
+  max-width: 46ch;
+}
+
+/* --- Kartu info: daftar poin penting --- */
+.hewan-info-card {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(18px, 2.2vh, 24px) clamp(20px, 2.4vw, 28px);
+  border-radius: var(--radius-md);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 34px -22px rgba(31, 45, 38, 0.28);
+}
+
+.hewan-info-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.hewan-info-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+}
+
+.hewan-info-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.hewan-info-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+/* --- Tombol navigasi slide --- */
+.hewan-actions {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hewan-btn-secondary {
+  color: var(--color-primary-dark);
+  background: rgba(127, 199, 155, 0.18);
+  border: 1px solid rgba(46, 125, 70, 0.2);
+  padding: 14px 26px;
+}
+
+.hewan-btn-secondary:hover {
+  background: rgba(127, 199, 155, 0.32);
+  transform: translateY(-2px);
+}
+
+/* --- Kolom gambar (tempat <img> asli) --- */
+.hewan-image {
+  position: relative;
+  width: 85%;
+  height: 85%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 26px 50px -22px rgba(31, 45, 38, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hewan-image-real {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .hewan-hero,
+  .hewan-hero--reverse {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  .hewan-hero--reverse .hewan-content,
+  .hewan-hero--reverse .hewan-image {
+    order: initial;
+  }
+
+  .hewan-image {
+    height: min(28vh, 240px);
+    order: -1;
+  }
+
+  .hewan-info-list {
+    grid-template-columns: 1fr;
+  }
+}
+/* =====================================================
+   SLIDE 3 — PERBANDINGAN CARA BERKEMBANG BIAK HEWAN
+===================================================== */
+.hewan-compare {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+}
+
+/* --- Kolom Kiri: Navigasi Card --- */
+.hewan-compare-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(10px, 1.6vh, 16px);
+}
+
+.hewan-compare-title {
+  font-weight: 800;
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  line-height: 1.28;
+  letter-spacing: -0.3px;
+  color: var(--color-text);
+}
+
+.hewan-compare-btns {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.hewan-compare-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: clamp(16px, 2vh, 20px) clamp(18px, 2vw, 22px);
+  border-radius: var(--radius-md);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 14px 28px -20px rgba(31, 45, 38, 0.25);
+  transition: transform var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease),
+              background var(--dur) var(--ease);
+  text-align: left;
+  will-change: transform;
+}
+
+.hewan-compare-btn:not(.hewan-compare-btn--active):hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.hewan-compare-btn-icon {
+  flex-shrink: 0;
+  font-size: 1.9rem;
+}
+
+.hewan-compare-btn-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.hewan-compare-btn-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-text);
+}
+
+.hewan-compare-btn-desc {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--color-text-soft);
+}
+
+/* --- State aktif --- */
+.hewan-compare-btn--active {
+  transform: scale(1.04);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-color: transparent;
+  box-shadow: 0 18px 34px -14px rgba(46, 125, 70, 0.55);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.hewan-compare-btn--active .hewan-compare-btn-name,
+.hewan-compare-btn--active .hewan-compare-btn-desc {
+  color: #fff;
+}
+
+.hewan-compare-btn--active:hover {
+  transform: scale(1.04) translateY(-2px);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+/* --- Kolom Kanan: Konten Dinamis --- */
+.hewan-compare-content {
+  position: relative;
+  min-height: min(56vh, 460px);
+}
+
+.hewan-compare-panel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(20px, 2.6vw, 36px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s var(--ease),
+              transform 0.3s var(--ease),
+              visibility 0.3s var(--ease);
+}
+
+.hewan-compare-panel--active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hewan-compare-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hewan-compare-tag {
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+  background: rgba(127, 199, 155, 0.2);
+  border: 1px solid rgba(46, 125, 70, 0.16);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.hewan-compare-heading {
+  font-weight: 800;
+  font-size: clamp(1.7rem, 2.4vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+/* --- Diagram sederhana --- */
+.hewan-diagram {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background: rgba(126, 200, 227, 0.14);
+  border: 1px dashed rgba(46, 125, 70, 0.24);
+}
+
+.hewan-diagram-item {
+  position: relative;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.hewan-diagram-arrow {
+  font-size: 1.2rem;
+  color: var(--color-text-soft);
+}
+
+.hewan-diagram-note {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-text-soft);
+}
+
+.hewan-compare-desc {
+  font-size: clamp(1.6rem, 1.15vw, 1.15rem);
+  line-height: 1.75;
+  color: var(--color-text-soft);
+  max-width: 50ch;
+}
+
+/* --- Contoh hewan --- */
+.hewan-example-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(14px, 1.8vh, 18px) clamp(18px, 2vw, 22px);
+  border-radius: var(--radius-md);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.hewan-example-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hewan-example-list li {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(46, 125, 70, 0.14);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+/* --- Gambar panel --- */
+.hewan-compare-image {
+  position: relative;
+  width: 100%;
+  height: min(40vh, 340px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 22px 44px -22px rgba(31, 45, 38, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* --- Tombol navigasi bawah slide 3 --- */
+.hewan-compare-nav-actions {
+  margin-top: clamp(14px, 2vh, 22px);
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .hewan-compare {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
+  .hewan-compare-btns {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .hewan-compare-btn {
+    width: auto;
+    flex: 1 1 200px;
+  }
+
+  .hewan-compare-panel {
+    position: relative;
+    inset: auto;
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  .hewan-compare-content {
+    min-height: auto;
+  }
+
+  .hewan-compare-image {
+    height: min(26vh, 220px);
+    order: -1;
+  }
+}
+/* =====================================================
+   SLIDE 4 — BAGAIMANA HEWAN BERKEMBANG (DIAGRAM CIRCULAR)
+===================================================== */
+.hewan-flow-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(10px, 1.4vh, 14px);
+  width: 100%;
+  height: 100%;
+}
+
+.hewan-flow-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  padding-top: clamp(20px, 2.6vh, 28px);
+}
+
+.hewan-flow-title {
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: -0.4px;
+  color: var(--color-text);
+}
+
+.hewan-flow-top {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 200px);
+  gap: clamp(14px, 2vw, 22px);
+  align-items: stretch;
+  flex: 0 0 auto;
+}
+
+/* --- Panggung diagram --- */
+.hewan-flow-diagram {
+  position: relative;
+  width: 100%;
+  height: min(38vh, 320px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-glass-border);
+  background: var(--color-glass);
+  box-shadow: 0 22px 44px -22px rgba(31, 45, 38, 0.28);
+}
+
+.hewan-flow-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.hewan-flow-scene--active {
+  display: block;
+  animation: hewanFlowSceneFade 0.5s var(--ease);
+}
+
+@keyframes hewanFlowSceneFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* --- Langit, matahari, awan --- */
+.hewan-flow-sun {
+  fill: var(--color-highlight);
+  filter: drop-shadow(0 0 10px rgba(255, 201, 77, 0.55));
+  animation: hewanFlowSunPulse 4s ease-in-out infinite;
+}
+
+@keyframes hewanFlowSunPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.1); opacity: 0.9; }
+}
+
+.hewan-flow-cloud {
+  fill: rgba(255, 255, 255, 0.85);
+}
+
+.hewan-flow-cloud--1 { animation: hewanFlowCloudDrift 22s linear infinite; }
+.hewan-flow-cloud--2 { animation: hewanFlowCloudDrift 30s linear infinite; animation-delay: -8s; }
+
+@keyframes hewanFlowCloudDrift {
+  from { transform: translateX(-30px); }
+  to   { transform: translateX(340px); }
+}
+
+/* --- Tanah, rumput, orb cahaya, sparkle --- */
+.hewan-flow-ground {
+  fill: rgba(127, 199, 155, 0.2);
+}
+
+.hewan-flow-grass rect {
+  fill: var(--color-primary);
+  transform-origin: bottom center;
+  animation: hewanFlowGrassSway 2.4s ease-in-out infinite alternate;
+}
+
+.hewan-flow-grass rect:nth-child(even) { animation-duration: 2s; animation-delay: -0.5s; }
+
+@keyframes hewanFlowGrassSway {
+  from { transform: rotate(-8deg); }
+  to   { transform: rotate(8deg); }
+}
+
+.hewan-flow-orb {
+  fill: rgba(126, 200, 227, 0.28);
+  filter: blur(1px);
+  animation: hewanFlowOrbFloat 6s ease-in-out infinite;
+}
+
+.hewan-flow-orb--2 {
+  fill: rgba(255, 201, 77, 0.22);
+  animation-duration: 7.5s;
+  animation-delay: -2s;
+}
+
+.hewan-flow-orb--3 {
+  fill: rgba(127, 199, 155, 0.3);
+  animation-duration: 5.5s;
+  animation-delay: -4s;
+}
+
+@keyframes hewanFlowOrbFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.hewan-flow-sparkle {
+  fill: rgba(255, 255, 255, 0.9);
+  animation: hewanFlowSparkleTwinkle 3.2s ease-in-out infinite;
+}
+
+.hewan-flow-sparkle--2 { animation-delay: -1s; }
+.hewan-flow-sparkle--3 { animation-delay: -2s; }
+
+@keyframes hewanFlowSparkleTwinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50%      { opacity: 1;    transform: scale(1.2); }
+}
+
+/* --- Panah melengkung dengan efek cahaya mengalir --- */
+.hewan-flow-arrow {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 6 14;
+  opacity: 0.55;
+  filter: drop-shadow(0 0 3px rgba(46, 125, 70, 0.5));
+  animation: hewanFlowArrowFlow 1.4s linear infinite;
+}
+
+@keyframes hewanFlowArrowFlow {
+  from { stroke-dashoffset: 40; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* --- Node: cincin berputar + bola dengan glow aktif --- */
+.hewan-flow-node text {
+  pointer-events: none;
+}
+
+
+
+/* --- Node: bola dengan glow aktif + cincin & bola kecil yang benar-benar mengorbit --- */
+.hewan-flow-node-ring {
+  fill: none;
+  stroke: var(--color-secondary);
+  stroke-width: 3;
+  stroke-dasharray: 4 7;
+  opacity: 0.75;
+  animation: hewanFlowRingSpin 5s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+[data-flow-scene="tanpa"] .hewan-flow-node-ring {
+  animation-duration: 4s;
+}
+
+@keyframes hewanFlowRingSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.hewan-flow-node-orbit-dot {
+  fill: var(--color-highlight);
+  filter: drop-shadow(0 0 5px rgba(255, 201, 77, 0.85));
+}
+
+.hewan-flow-node-ball {
+  fill: rgba(255, 255, 255, 0.78);
+  stroke: rgba(46, 125, 70, 0.25);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hewanFlowBallPulse 8s ease-in-out infinite;
+}
+
+[data-flow-scene="tanpa"] .hewan-flow-node-ball {
+  animation-duration: 6s;
+}
+
+@keyframes hewanFlowBallPulse {
+  0%   { transform: scale(1);   fill: rgba(255, 255, 255, 0.78); filter: none; }
+  4%   { transform: scale(1.1); fill: rgba(127, 199, 155, 0.65); filter: drop-shadow(0 0 12px rgba(46, 125, 70, 0.7)); }
+  22%  { transform: scale(1.1); fill: rgba(127, 199, 155, 0.65); filter: drop-shadow(0 0 12px rgba(46, 125, 70, 0.7)); }
+  28%  { transform: scale(1);   fill: rgba(255, 255, 255, 0.78); filter: none; }
+  100% { transform: scale(1);   fill: rgba(255, 255, 255, 0.78); filter: none; }
+}
+
+/* --- Menu vertikal (kanan) --- */
+.hewan-flow-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(14px, 1.8vh, 18px);
+  border-radius: var(--radius-md);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 34px -22px rgba(31, 45, 38, 0.28);
+}
+
+.hewan-flow-menu-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+  margin-bottom: 2px;
+}
+
+.hewan-flow-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(46, 125, 70, 0.14);
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.hewan-flow-menu-btn:hover {
+  transform: translateX(-2px);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.hewan-flow-menu-dot {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(46, 125, 70, 0.4);
+  background: transparent;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.hewan-flow-menu-btn--active {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  border-color: transparent;
+  box-shadow: 0 12px 24px -12px rgba(46, 125, 70, 0.5);
+  color: #fff;
+}
+
+.hewan-flow-menu-btn--active .hewan-flow-menu-dot {
+  background: #fff;
+  border-color: #fff;
+}
+
+/* --- Panel informasi besar (40–45% tinggi slide) --- */
+.hewan-flow-info {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 40vh;
+  max-height: 45vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(20px, 2.6vh, 28px) clamp(22px, 2.8vw, 32px);
+  border-radius: var(--radius-md);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 34px -22px rgba(31, 45, 38, 0.28);
+}
+
+.hewan-flow-info-title {
+  font-weight: 800;
+  font-size: clamp(1.5rem, 2.1vw, 1.9rem);
+  color: var(--color-primary-dark);
+}
+
+.hewan-flow-info-desc {
+  font-size: 1.5rem;
+  line-height: 1.7;
+  color: var(--color-text-soft);
+  max-width: 90ch;
+}
+
+.hewan-flow-info-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 28px);
+}
+
+.hewan-flow-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hewan-flow-info-stages {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hewan-flow-info-stages li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.hewan-flow-info-stages li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+  .hewan-flow-top {
+    grid-template-columns: 1fr;
+  }
+
+  .hewan-flow-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .hewan-flow-menu-btn {
+    flex: 1 1 160px;
+  }
+
+  .hewan-flow-info-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hewan-flow-diagram {
+    height: min(28vh, 230px);
+  }
+
+  .hewan-flow-info {
+    min-height: 34vh;
+  }
+}
+.hewan-flow-info .hewan-example-list li {
+  font-size: 1rem;
+  padding: 8px 18px;
+}
+/* =====================================================
+   SLIDE 4 — ORBIT SELURUH BOLA EMOJI (bukan hanya dot)
+===================================================== */
+.hewan-flow-orbit-group {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hewanFlowNodeOrbit 5s linear infinite;
+}
+
+@keyframes hewanFlowNodeOrbit {
+  0%    { transform: translate(0px, -5px); }
+  12.5% { transform: translate(3.5px, -3.5px); }
+  25%   { transform: translate(5px, 0px); }
+  37.5% { transform: translate(3.5px, 3.5px); }
+  50%   { transform: translate(0px, 5px); }
+  62.5% { transform: translate(-3.5px, 3.5px); }
+  75%   { transform: translate(-5px, 0px); }
+  87.5% { transform: translate(-3.5px, -3.5px); }
+  100%  { transform: translate(0px, -5px); }
+}
+/* =====================================================
+   TOMBOL PINDAH BAB (tengah kiri, ‹ ›) &
+   TOMBOL PINDAH SLIDE (pojok kanan bawah, ▲ ▼)
+===================================================== */
+
+/* --- Tombol bab: dua tombol vertikal di tengah kiri --- */
+.hewan-chapter-nav {
+  position: fixed;
+  left: clamp(16px, 2.4vw, 32px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hewan-chapter-btn {
+  display: grid;
+  place-items: center;
+  width: clamp(46px, 4.4vw, 56px);
+  height: clamp(46px, 4.4vw, 56px);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-primary-dark);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 16px 30px -18px rgba(31, 45, 38, 0.4);
+  transition: transform var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease),
+              background var(--dur) var(--ease),
+              opacity var(--dur) var(--ease);
+  text-decoration: none !important;
+}
+
+.hewan-chapter-btn:hover {
+  transform: translateY(-3px) scale(1.06);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 20px 36px -16px rgba(31, 45, 38, 0.45);
+}
+
+.hewan-chapter-btn:active {
+  transform: scale(0.94);
+}
+
+.hewan-chapter-btn.is-hidden {
+  display: none;
+}
+
+/* --- Tombol slide: dua tombol vertikal di pojok kanan bawah --- */
+.hewan-float-nav {
+  position: fixed;
+  right: clamp(20px, 3vw, 40px);
+  bottom: clamp(20px, 3vh, 40px);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hewan-float-btn {
+  display: grid;
+  place-items: center;
+  width: clamp(46px, 4.4vw, 56px);
+  height: clamp(46px, 4.4vw, 56px);
+  border-radius: 50%;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--color-primary-dark);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 16px 30px -18px rgba(31, 45, 38, 0.4);
+  transition: transform var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease),
+              background var(--dur) var(--ease),
+              opacity var(--dur) var(--ease);
+}
+
+.hewan-float-btn:hover:not(:disabled) {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 20px 34px -14px rgba(31, 45, 38, 0.45);
+}
+
+.hewan-float-btn:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.hewan-float-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .hewan-chapter-nav {
+    display: none;
+  }
+
+  .hewan-float-nav {
+    right: 14px;
+    bottom: 14px;
+  }
+}
+
+/* =====================================================================
+   REDESIGN RESPONSIVE — TABLET / LAPTOP / DESKTOP BESAR / TV & 4K
+   =====================================================================
+   Semua aturan di bawah ini HANYA aktif mulai dari 768px ke atas
+   (min-width), sehingga tampilan mobile (0–767px) yang sudah bagus
+   sama sekali TIDAK tersentuh — tidak ada baris di atas titik ini
+   yang diubah.
+
+   Pendekatan: mobile-first cascade. Setiap breakpoint hanya menulis
+   properti yang BERBEDA dari breakpoint di bawahnya; breakpoint yang
+   lebih besar otomatis mewarisi hasil breakpoint sebelumnya karena
+   urutan file (source order), tanpa perlu transform:scale() ataupun
+   zoom apa pun. HTML, JS, warna, ikon, sistem slide, progress bar,
+   dan seluruh animasi/SVG animation TIDAK diubah — hanya ukuran,
+   proporsi grid, spacing, dan lebar kontainer.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   TABLET — 768px sampai 1023px
+   Kontainer mulai dibatasi & dipusatkan, tapi layout tetap simpel
+   (stacked) mengikuti aturan @media (max-width:1024px) yang sudah ada.
+--------------------------------------------------------------------- */
+@media (min-width: 768px) {
+  .app {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .app {
+    max-width: 760px;
+    margin-inline: auto;
+  }
+
+  .materi-cards {
+    grid-template-columns: minmax(240px, 320px);
+  }
+
+  .hewan-flow-diagram {
+    height: min(34vh, 300px);
+  }
+
+  .hewan-flow-info-desc {
+    font-size: 1.15rem;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   LAPTOP — 1024px sampai 1439px
+   Di sinilah perubahan utama terjadi: kontainer dibatasi ke ~1450px
+   dan dipusatkan, proporsi gambar vs konten disesuaikan (gambar
+   ±40–45%, konten ±55–60%), ukuran header/tombol/kartu diperkecil
+   secara proporsional, dan slide "Bagaimana Hewan Berkembang" disusun
+   ulang menjadi diagram (±42%) berdampingan dengan panel informasi
+   (±58%) alih-alih bertumpuk vertikal.
+--------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+
+  /* --- Kontainer utama, dipusatkan di layar besar --- */
+  .app {
+    max-width: 1450px;
+    margin-inline: auto;
+  }
+
+  /* --- Header lebih ramping --- */
+  .header {
+    padding: clamp(14px, 2vh, 22px) 0 clamp(6px, 1vh, 12px);
+  }
+
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+    font-size: 1.05rem;
+    border-radius: 10px;
+  }
+
+  .logo-text {
+    font-size: 0.92rem;
+  }
+
+  .home-link {
+    padding: 8px 18px;
+    font-size: 0.86rem;
+  }
+
+  /* --- Tombol umum sedikit lebih ramping, tetap mudah ditekan --- */
+  .btn-large {
+    padding: 15px 30px;
+    font-size: 0.98rem;
+  }
+
+  /* --- Slide 1: Cover / Hero --- */
+  .hero {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: clamp(32px, 4vw, 64px);
+  }
+
+  .hero-title {
+    font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.95rem, 0.95vw, 1.05rem);
+  }
+
+  .hero-image {
+    height: min(46vh, 400px);
+  }
+
+  .hero-illustration-card {
+    width: min(82%, 340px);
+  }
+
+  /* --- Slide 2: Pilih Materi --- */
+  .materi-title {
+    font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+  }
+
+  .materi-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .materi-cards {
+    grid-template-columns: repeat(2, minmax(240px, 300px));
+    gap: clamp(24px, 2.6vw, 36px);
+  }
+
+  .materi-card {
+    padding: clamp(22px, 2vw, 28px) clamp(22px, 2vw, 26px);
+  }
+
+  /* --- Halaman Hewan: Pengertian & Embrio (gambar ±40–45%) --- */
+  .hewan-hero,
+  .hewan-hero--reverse {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(32px, 4vw, 60px);
+  }
+
+  .hewan-title {
+    font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+  }
+
+  .hewan-desc {
+    font-size: clamp(1rem, 1vw, 1.15rem);
+    line-height: 1.75;
+    max-width: 62ch;
+  }
+
+  .hewan-info-list li {
+    font-size: 0.95rem;
+  }
+
+  .hewan-image {
+    height: min(42vh, 380px);
+  }
+
+  .hewan-btn-secondary {
+    padding: 12px 22px;
+    font-size: 0.95rem;
+  }
+
+  /* --- Slide: Perbandingan Cara Berkembang Biak --- */
+  .hewan-compare {
+    grid-template-columns: minmax(0, 0.26fr) minmax(0, 0.74fr);
+    gap: clamp(28px, 3vw, 48px);
+  }
+
+  .hewan-compare-title {
+    font-size: clamp(1.15rem, 1.4vw, 1.45rem);
+  }
+
+  .hewan-compare-btns {
+    gap: 14px;
+  }
+
+  .hewan-compare-btn {
+    padding: clamp(14px, 1.6vh, 18px) clamp(16px, 1.6vw, 20px);
+  }
+
+  .hewan-compare-btn-icon {
+    font-size: 1.6rem;
+  }
+
+  .hewan-compare-btn-name {
+    font-size: 1.05rem;
+  }
+
+  .hewan-compare-btn-desc {
+    font-size: 0.84rem;
+  }
+
+  .hewan-compare-heading {
+    font-size: clamp(1.5rem, 1.8vw, 1.9rem);
+  }
+
+  /* Perbaikan: clamp() aslinya (1.6rem, 1.15vw, 1.15rem) tidak valid
+     (nilai minimum lebih besar dari maksimum) sehingga teks selalu
+     tampil raksasa di layar besar. Di sini diberi nilai yang benar. */
+  .hewan-compare-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 58ch;
+  }
+
+  .hewan-compare-image {
+    height: min(34vh, 300px);
+  }
+
+  .hewan-example-list li {
+    font-size: 0.82rem;
+  }
+
+  /* --- Slide: Bagaimana Hewan Berkembang (diagram ±42% / panel ±58%) --- */
+  .hewan-flow-slide {
+    display: grid;
+    grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "header header"
+      "diagram info"
+      "nav nav";
+    column-gap: clamp(24px, 2.6vw, 40px);
+    row-gap: clamp(12px, 1.6vh, 18px);
+    align-items: start;
+    width: 100%;
+    height: auto;
+  }
+
+  .hewan-flow-header {
+    grid-area: header;
+    padding-top: clamp(10px, 1.4vh, 16px);
+  }
+
+  .hewan-flow-title {
+    font-size: clamp(1.7rem, 2.2vw, 2.3rem);
+  }
+
+  .hewan-flow-top {
+    grid-area: diagram;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .hewan-flow-diagram {
+    width: 100%;
+    height: min(40vh, 360px);
+  }
+
+  .hewan-flow-menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .hewan-flow-menu-btn {
+    flex: 1 1 150px;
+    font-size: 0.92rem;
+    padding: 8px 10px;
+  }
+
+  .hewan-flow-info {
+    grid-area: info;
+    min-height: unset;
+    max-height: none;
+    align-self: stretch;
+  }
+
+  .hewan-flow-info-title {
+    font-size: clamp(1.3rem, 1.6vw, 1.6rem);
+  }
+
+  /* Perbaikan: ukuran deskripsi aslinya tetap 1.5rem (tidak memakai
+     clamp) sehingga terlihat berlebihan di layar besar. */
+  .hewan-flow-info-desc {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .hewan-flow-info-stages li {
+    font-size: 0.98rem;
+  }
+
+  .hewan-flow-info .hewan-example-list li {
+    font-size: 0.88rem;
+    padding: 7px 16px;
+  }
+
+  .hewan-actions.hewan-flow-nav-actions {
+    grid-area: nav;
+  }
+
+  /* --- Tombol pindah bab & pindah slide --- */
+  .hewan-chapter-btn,
+  .hewan-float-btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .hewan-chapter-btn {
+    font-size: 1.3rem;
+  }
+
+  .hewan-float-btn {
+    font-size: 0.95rem;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   DESKTOP BESAR — 1440px sampai 1919px (monitor 24–32")
+--------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+  .app {
+    max-width: 1550px;
+  }
+
+  .hero-image {
+    height: min(48vh, 430px);
+  }
+
+  .hewan-image {
+    height: min(44vh, 410px);
+  }
+
+  .hewan-flow-diagram {
+    height: min(42vh, 390px);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   TV / 4K / SMARTBOARD — 1920px ke atas
+--------------------------------------------------------------------- */
+@media (min-width: 1920px) {
+  .app {
+    max-width: 1700px;
+  }
+
+  .logo-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.1rem, 2.2vw, 2.9rem);
+  }
+
+  .hero-image {
+    height: min(50vh, 470px);
+  }
+
+  .hewan-title {
+    font-size: clamp(2.1rem, 2.1vw, 2.9rem);
+  }
+
+  .hewan-image {
+    height: min(46vh, 440px);
+  }
+
+  .hewan-flow-diagram {
+    height: min(44vh, 430px);
+  }
+
+  .hewan-flow-info-desc {
+    font-size: 1.15rem;
+  }
+
+  .hewan-chapter-btn,
+  .hewan-float-btn {
+    width: 60px;
+    height: 60px;
+  }
+
+  .hewan-chapter-btn {
+    font-size: 1.5rem;
+  }
+
+  .hewan-float-btn {
+    font-size: 1.05rem;
+  }
+}
+/* =====================================================
+   STIKER MATERI — WhatsApp-style, pojok kanan bawah card
+===================================================== */
+.materi-card {
+  --sticker-size: clamp(36px, 9vw, 44px);
+}
+
+.materi-sticker {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: var(--sticker-size);
+  height: var(--sticker-size);
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 8px 16px -6px rgba(31, 45, 38, 0.4),
+    0 2px 5px rgba(31, 45, 38, 0.18);
+  pointer-events: none;
+  z-index: 2;
+  transition: transform var(--dur) var(--ease);
+}
+
+.sticker-hewan { transform: rotate(-7deg); }
+.sticker-tumbuhan { transform: rotate(6deg); }
+
+/* Hover hanya untuk perangkat mouse (desktop) — HP & TV Touch diam saja */
+@media (hover: hover) and (pointer: fine) {
+  .materi-card:hover .sticker-hewan { transform: rotate(-3deg) scale(1.08); }
+  .materi-card:hover .sticker-tumbuhan { transform: rotate(3deg) scale(1.08); }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .materi-card { --sticker-size: clamp(46px, 6vw, 54px); }
+}
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .materi-card { --sticker-size: clamp(56px, 5vw, 64px); }
+}
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .materi-card { --sticker-size: clamp(64px, 4vw, 74px); }
+}
+@media (min-width: 1920px) {
+  .materi-card { --sticker-size: clamp(85px, 4.5vw, 100px); }
+}
+/* =====================================================================
+   TUMBUHAN.HTML — SLIDE 9: PENGERTIAN TUMBUHAN
+   File CSS terpisah, tinggal ditambahkan sebagai <link> kedua setelah
+   css/style.css di tumbuhan.html — TIDAK menimpa apa pun di style.css,
+   jadi aman digabung ke proyek yang sudah berjalan.
+
+   Semua class baru memakai prefix "tumbuhan-" (kolom kiri memakai
+   ulang class hewan-content / hewan-title / hewan-desc / hewan-info-*
+   / hewan-actions / hewan-btn-secondary / hewan-image supaya tampilan
+   100% konsisten dengan hewan.html — tidak didefinisikan ulang di sini).
+===================================================================== */
+
+/* --- Lebar paragraf sedikit lebih luas khusus slide ini --- */
+.tumbuhan-desc {
+  max-width: 58ch;
+}
+
+/* --- Grid 2 kolom ±45% / ±55% --- */
+.tumbuhan-hero {
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.05fr);
+}
+
+@media (min-width: 1024px) {
+  .tumbuhan-hero {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+}
+
+/* =====================================================================
+   KARTU ILUSTRASI (kanan)
+===================================================================== */
+.tumbuhan-scene-card {
+  padding: 0;
+  background: transparent;
+}
+
+.tumbuhan-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(165deg, #EAF7EE 0%, #DDF1E4 45%, #CBEAD6 100%);
+}
+
+/* --- Matahari --- */
+.tumbuhan-sun {
+  position: absolute;
+  top: 9%;
+  right: 11%;
+  width: clamp(48px, 7vw, 76px);
+  height: clamp(48px, 7vw, 76px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 32%, #FFE1A0, var(--color-highlight) 68%);
+  box-shadow: 0 0 0 10px rgba(255, 201, 77, 0.14), 0 0 34px 6px rgba(255, 201, 77, 0.35);
+  animation: tumbuhanSunSpin 14s linear infinite, tumbuhanSunPulse 4s ease-in-out infinite;
+}
+
+.tumbuhan-sun::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 201, 77, 0.35);
+}
+
+@keyframes tumbuhanSunSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes tumbuhanSunPulse {
+  0%, 100% { filter: brightness(1); }
+  50%      { filter: brightness(1.08); }
+}
+
+/* --- Awan tipis --- */
+.tumbuhan-cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  filter: blur(0.3px);
+}
+
+.tumbuhan-cloud::before,
+.tumbuhan-cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 999px;
+}
+
+.tumbuhan-cloud--1 {
+  top: 16%;
+  left: -18%;
+  width: 78px;
+  height: 22px;
+  animation: tumbuhanCloudDrift 24s linear infinite;
+}
+.tumbuhan-cloud--1::before { width: 40px; height: 32px; top: -14px; left: 10px; }
+.tumbuhan-cloud--1::after  { width: 30px; height: 24px; top: -8px; left: 42px; }
+
+.tumbuhan-cloud--2 {
+  top: 28%;
+  left: -30%;
+  width: 56px;
+  height: 16px;
+  opacity: 0.8;
+  animation: tumbuhanCloudDrift 32s linear infinite;
+  animation-delay: -10s;
+}
+.tumbuhan-cloud--2::before { width: 28px; height: 20px; top: -10px; left: 8px; }
+.tumbuhan-cloud--2::after  { width: 20px; height: 16px; top: -6px; left: 30px; }
+
+@keyframes tumbuhanCloudDrift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(340px); }
+}
+
+/* --- Tanah / rumput --- */
+.tumbuhan-ground {
+  position: absolute;
+  inset: 0;
+}
+
+.tumbuhan-grass {
+  position: absolute;
+  bottom: 6%;
+  width: 64px;
+  height: 30px;
+}
+
+.tumbuhan-grass--left  { left: 4%; }
+.tumbuhan-grass--right { right: 4%; }
+
+.tumbuhan-grass::before,
+.tumbuhan-grass::after,
+.tumbuhan-grass span {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 5px;
+  height: 26px;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, var(--color-secondary), var(--color-primary));
+  transform-origin: bottom center;
+  animation: tumbuhanGrassSway 2.6s ease-in-out infinite alternate;
+}
+
+.tumbuhan-grass::before { left: 4px; height: 20px; animation-delay: -0.4s; }
+.tumbuhan-grass::after  { left: 16px; height: 28px; animation-delay: -1.1s; }
+.tumbuhan-grass span    { left: 28px; height: 22px; animation-delay: -1.8s; }
+.tumbuhan-grass span:nth-child(2) { left: 40px; height: 25px; animation-delay: -0.7s; }
+
+@keyframes tumbuhanGrassSway {
+  from { transform: rotate(-9deg); }
+  to   { transform: rotate(9deg); }
+}
+
+/* --- Pot tanaman --- */
+.tumbuhan-pot {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(120px, 24%, 190px);
+}
+
+.tumbuhan-pot-rim {
+  position: relative;
+  width: 100%;
+  height: clamp(14px, 2.2vw, 20px);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #C98C4C, #A96C34);
+  box-shadow: 0 4px 8px -2px rgba(31, 45, 38, 0.25);
+  z-index: 3;
+}
+
+.tumbuhan-pot-body {
+  width: 84%;
+  height: clamp(60px, 9vw, 92px);
+  margin: 0 auto;
+  background: linear-gradient(180deg, #B97A3E, #8F5A2A);
+  clip-path: polygon(6% 0%, 94% 0%, 84% 100%, 16% 100%);
+  box-shadow: inset 0 8px 14px -8px rgba(255, 255, 255, 0.25);
+}
+
+.tumbuhan-soil {
+  position: absolute;
+  top: clamp(10px, 1.6vw, 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 74%;
+  height: clamp(12px, 1.8vw, 16px);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #4B3521, #33240F 78%);
+  z-index: 4;
+}
+
+.tumbuhan-soil-glow {
+  position: absolute;
+  top: clamp(4px, 1vw, 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 201, 77, 0.55), transparent 70%);
+  z-index: 4;
+  animation:
+    tumbuhanStage0Fade 17.5s ease-in-out infinite,
+    tumbuhanSoilPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes tumbuhanSoilPulse {
+  0%, 100% { transform: translateX(-50%) scale(0.9); opacity: 0.6; }
+  50%      { transform: translateX(-50%) scale(1.15); opacity: 1; }
+}
+
+/* =====================================================================
+   TANAMAN — 5 TAHAP (crossfade otomatis, infinite loop, 17.5s/siklus)
+===================================================================== */
+.tumbuhan-plant-stages {
+  position: absolute;
+  bottom: clamp(66px, 11vw, 100px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+}
+
+.tumbuhan-stage {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* --- Bagian bersama: batang & daun --- */
+.tumbuhan-stem {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--color-secondary), var(--color-primary));
+  transform-origin: bottom center;
+  animation: tumbuhanStemSway 3.2s ease-in-out infinite;
+}
+
+@keyframes tumbuhanStemSway {
+  0%, 100% { transform: translateX(-50%) rotate(-2.5deg); }
+  50%      { transform: translateX(-50%) rotate(2.5deg); }
+}
+
+.tumbuhan-leaf {
+  position: absolute;
+  width: 22px;
+  height: 14px;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+  border-radius: 0 60% 0 60%;
+  transform-origin: 0% 50%;
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.3);
+  animation: tumbuhanLeafSway 2.8s ease-in-out infinite;
+}
+
+.tumbuhan-leaf--right {
+  border-radius: 60% 0 60% 0;
+  transform-origin: 100% 50%;
+}
+
+@keyframes tumbuhanLeafSway {
+  0%, 100% { transform: rotate(var(--leaf-angle, -18deg)); }
+  50%      { transform: rotate(calc(var(--leaf-angle, -18deg) + 9deg)); }
+}
+
+/* --- Tahap 1: Benih --- */
+.tumbuhan-stage--seed {
+  width: 16px;
+  height: 20px;
+}
+
+.tumbuhan-seed-body {
+  width: 15px;
+  height: 19px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #C99A5B, #8B6B3D);
+  box-shadow: 0 3px 6px -2px rgba(31, 45, 38, 0.3);
+}
+
+.tumbuhan-seed-ring {
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 201, 77, 0.55);
+  animation: tumbuhanSeedRing 2.4s ease-out infinite;
+}
+
+@keyframes tumbuhanSeedRing {
+  0%   { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* --- Tahap 2: Tunas --- */
+.tumbuhan-stage--sprout {
+  width: 40px;
+  height: 26px;
+}
+
+.tumbuhan-root {
+  position: absolute;
+  top: 4px;
+  width: 16px;
+  height: 9px;
+  border-bottom: 2px solid #8B6B3D;
+  border-radius: 0 0 50% 50%;
+  opacity: 0.85;
+}
+
+.tumbuhan-root--left  { left: -13px; transform: rotate(14deg); }
+.tumbuhan-root--right { right: -13px; transform: rotate(-14deg) scaleX(-1); }
+
+.tumbuhan-sprout-tip {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 22px;
+  border-radius: 60% 60% 40% 40%;
+  background: linear-gradient(180deg, var(--color-secondary), var(--color-primary));
+  transform-origin: bottom center;
+  animation: tumbuhanStemSway 3s ease-in-out infinite;
+}
+
+/* --- Tahap 3: Kecambah --- */
+.tumbuhan-stage--seedling .tumbuhan-stem {
+  height: 42px;
+}
+
+.tumbuhan-stage--seedling .tumbuhan-leaf {
+  bottom: 34px;
+  --leaf-angle: -20deg;
+}
+
+.tumbuhan-stage--seedling .tumbuhan-leaf--right {
+  --leaf-angle: 20deg;
+}
+
+/* --- Tahap 4: Tanaman Muda --- */
+.tumbuhan-stage--young .tumbuhan-stem {
+  height: 74px;
+}
+
+.tumbuhan-stage--young .tumbuhan-leaf--l1 { bottom: 26px; --leaf-angle: -22deg; animation-delay: -0.3s; }
+.tumbuhan-stage--young .tumbuhan-leaf--r1 { bottom: 40px; --leaf-angle: 22deg;  animation-delay: -0.9s; }
+.tumbuhan-stage--young .tumbuhan-leaf--l2 { bottom: 56px; --leaf-angle: -18deg; animation-delay: -1.5s; }
+
+/* --- Tahap 5: Tumbuhan Dewasa --- */
+.tumbuhan-stage--mature {
+  animation: tumbuhanWind 4.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.tumbuhan-stage--mature .tumbuhan-stem {
+  height: 100px;
+}
+
+.tumbuhan-stage--mature .tumbuhan-leaf--l1 { bottom: 28px; --leaf-angle: -24deg; animation-delay: -0.2s; }
+.tumbuhan-stage--mature .tumbuhan-leaf--r1 { bottom: 44px; --leaf-angle: 24deg;  animation-delay: -0.8s; }
+.tumbuhan-stage--mature .tumbuhan-leaf--l2 { bottom: 60px; --leaf-angle: -20deg; animation-delay: -1.4s; }
+.tumbuhan-stage--mature .tumbuhan-leaf--r2 { bottom: 76px; --leaf-angle: 20deg;  animation-delay: -2s; }
+
+@keyframes tumbuhanWind {
+  0%, 100% { transform: translateX(-50%) rotate(-1.5deg); }
+  50%      { transform: translateX(-50%) rotate(1.5deg); }
+}
+
+.tumbuhan-flower {
+  position: absolute;
+  bottom: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  animation: tumbuhanFlowerSway 3.4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes tumbuhanFlowerSway {
+  0%, 100% { transform: translateX(-50%) rotate(-6deg); }
+  50%      { transform: translateX(-50%) rotate(6deg); }
+}
+
+.tumbuhan-petal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13px;
+  height: 13px;
+  margin: -6.5px 0 0 -6.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF, var(--color-secondary) 78%);
+  transform-origin: center;
+}
+
+.tumbuhan-petal:nth-child(1) { transform: translateY(-9px); }
+.tumbuhan-petal:nth-child(2) { transform: rotate(72deg) translateY(-9px); }
+.tumbuhan-petal:nth-child(3) { transform: rotate(144deg) translateY(-9px); }
+.tumbuhan-petal:nth-child(4) { transform: rotate(216deg) translateY(-9px); }
+.tumbuhan-petal:nth-child(5) { transform: rotate(288deg) translateY(-9px); }
+
+.tumbuhan-flower-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFE8B0, var(--color-highlight));
+  box-shadow: 0 0 6px rgba(255, 201, 77, 0.6);
+}
+
+/* =====================================================================
+   CROSSFADE 5 TAHAP — total siklus 17.5s
+   (3s tampil penuh + 0.5s transisi fade ke tahap berikutnya) x 5 tahap
+===================================================================== */
+.tumbuhan-stage,
+.tumbuhan-stage-label span {
+  opacity: 0;
+  transition: none;
+}
+
+.tumbuhan-stage--seed,
+.tumbuhan-stage-label span[data-stage-text="seed"] {
+  animation: tumbuhanStage0Fade 17.5s ease-in-out infinite;
+}
+.tumbuhan-stage--sprout,
+.tumbuhan-stage-label span[data-stage-text="sprout"] {
+  animation: tumbuhanStage1Fade 17.5s ease-in-out infinite;
+}
+.tumbuhan-stage--seedling,
+.tumbuhan-stage-label span[data-stage-text="seedling"] {
+  animation: tumbuhanStage2Fade 17.5s ease-in-out infinite;
+}
+.tumbuhan-stage--young,
+.tumbuhan-stage-label span[data-stage-text="young"] {
+  animation: tumbuhanStage3Fade 17.5s ease-in-out infinite;
+}
+.tumbuhan-stage--mature,
+.tumbuhan-stage-label span[data-stage-text="mature"] {
+  animation-name: tumbuhanStage4Fade, tumbuhanWind;
+  animation-duration: 17.5s, 4.5s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+}
+.tumbuhan-stage-label span[data-stage-text="mature"] {
+  animation-name: tumbuhanStage4Fade;
+  animation-duration: 17.5s;
+}
+
+@keyframes tumbuhanStage0Fade {
+  0%       { opacity: 1; transform: translateX(-50%) scale(1); }
+  17.1429% { opacity: 1; transform: translateX(-50%) scale(1); }
+  20%      { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  97.1429% { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  100%     { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes tumbuhanStage1Fade {
+  0%       { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  17.1429% { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  20%      { opacity: 1; transform: translateX(-50%) scale(1); }
+  37.1429% { opacity: 1; transform: translateX(-50%) scale(1); }
+  40%      { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  100%     { opacity: 0; transform: translateX(-50%) scale(0.94); }
+}
+
+@keyframes tumbuhanStage2Fade {
+  0%       { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  37.1429% { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  40%      { opacity: 1; transform: translateX(-50%) scale(1); }
+  57.1429% { opacity: 1; transform: translateX(-50%) scale(1); }
+  60%      { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  100%     { opacity: 0; transform: translateX(-50%) scale(0.94); }
+}
+
+@keyframes tumbuhanStage3Fade {
+  0%       { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  57.1429% { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  60%      { opacity: 1; transform: translateX(-50%) scale(1); }
+  77.1429% { opacity: 1; transform: translateX(-50%) scale(1); }
+  80%      { opacity: 0; transform: translateX(-50%) scale(0.94); }
+  100%     { opacity: 0; transform: translateX(-50%) scale(0.94); }
+}
+
+@keyframes tumbuhanStage4Fade {
+  0%       { opacity: 0; }
+  77.1429% { opacity: 0; }
+  80%      { opacity: 1; }
+  97.1429% { opacity: 1; }
+  100%     { opacity: 0; }
+}
+
+/* --- Label tahap (badge kaca kecil di bawah ilustrasi) --- */
+.tumbuhan-stage-label {
+  position: absolute;
+  bottom: clamp(14px, 2.4vw, 22px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.tumbuhan-stage-label span {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--color-primary-dark);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--color-glass-border);
+  padding: 8px 20px;
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 20px -12px rgba(31, 45, 38, 0.3);
+}
+
+/* --- Responsive: pastikan proporsi & keterbacaan tetap terjaga --- */
+@media (max-width: 1024px) {
+  .tumbuhan-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1920px) {
+  .tumbuhan-sun {
+    width: 84px;
+    height: 84px;
+  }
+}
+/* =====================================================================
+   TUMBUHAN.HTML — SLIDE 10: BIJI MENJADI TUMBUHAN
+   File CSS terpisah (baru), ditambahkan sebagai <link> ketiga setelah
+   css/style.css dan css/tumbuhan-pengertian.css. Tidak menimpa file
+   lain — semua class memakai prefix "s10-" khusus slide ini.
+
+   Interaksi (bukan autoplay): fase ditentukan lewat atribut
+   [data-phase] pada #s10Sim yang diubah oleh js/script.js saat
+   pengguna klik slider / dot / label fase. Semua transisi visual
+   memakai opacity + transform, durasi ~500ms (custom property
+   --dur project = 0.4s, cukup dekat & konsisten dengan project).
+===================================================================== */
+
+.s10-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: clamp(10px, 1.4vh, 16px);
+}
+
+/* --- Header --- */
+.s10-header {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  padding-top: clamp(14px, 2vh, 20px);
+}
+
+.s10-title {
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+}
+
+.s10-subtitle {
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  max-width: 60ch;
+}
+
+/* =====================================================================
+   WRAPPER BARU (tidak dipakai JS): .s10-columns membungkus simulasi
+   (.s10-stage) & materi (.s10-info). Di mobile ia hanya flex-column
+   biasa (urutan DOM: simulasi dulu, materi kedua — sesuai desain).
+   Di >=768px ia berubah jadi grid 2 kolom lewat grid-template-areas,
+   menaruh materi di KIRI dan simulasi di KANAN secara visual tanpa
+   mengubah urutan DOM/JS.
+===================================================================== */
+.s10-columns {
+  flex: 8.5 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.4vh, 16px);
+}
+
+/* =====================================================================
+   BAGIAN ATAS (~45%) — SIMULASI
+===================================================================== */
+.s10-stage {
+  flex: 4.5 1 0;
+  min-height: 0;
+}
+
+.s10-sim {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-glass-border);
+  background: linear-gradient(165deg, #EEF9F1 0%, #E1F3E7 55%, #D3ECDC 100%);
+  box-shadow: 0 22px 44px -22px rgba(31, 45, 38, 0.28);
+}
+
+.s10-soil {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(48%, 220px);
+  height: clamp(14px, 2.2vw, 18px);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #4B3521, #33240F 80%);
+  box-shadow: 0 6px 14px -6px rgba(31, 45, 38, 0.35);
+}
+
+.s10-plant {
+  position: absolute;
+  bottom: calc(14% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+}
+
+/* --- Biji: terlihat penuh di fase "semen", memudar sesudahnya --- */
+.s10-seed {
+  position: absolute;
+  bottom: calc(14% + 2px);
+  left: 50%;
+  width: 20px;
+  height: 24px;
+  margin-left: -10px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #C99A5B, #8B6B3D);
+  box-shadow: 0 3px 8px -2px rgba(31, 45, 38, 0.3);
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+
+[data-phase="germinatio"] .s10-seed,
+[data-phase="plantula"] .s10-seed,
+[data-phase="juvenile"] .s10-seed,
+[data-phase="adult"] .s10-seed {
+  opacity: 0;
+  transform: translateY(6px) scale(0.7);
+}
+
+/* --- Akar --- */
+.s10-root {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  height: 0;
+  border-bottom: 2px solid #8B6B3D;
+  border-radius: 0 0 50% 50%;
+  opacity: 0;
+  transition: height 0.5s var(--ease), opacity 0.5s var(--ease);
+}
+
+.s10-root--l { left: -18px; transform: rotate(16deg); }
+.s10-root--r { right: -18px; transform: rotate(-16deg) scaleX(-1); }
+
+[data-phase="germinatio"] .s10-root  { height: 10px; opacity: 0.85; }
+[data-phase="plantula"]  .s10-root   { height: 16px; opacity: 0.85; }
+[data-phase="juvenile"]  .s10-root   { height: 22px; opacity: 0.85; }
+[data-phase="adult"]     .s10-root   { height: 26px; opacity: 0.85; }
+
+/* --- Batang --- */
+.s10-stem {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  height: 0;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--color-secondary), var(--color-primary));
+  transform: translateX(-50%);
+  transition: height 0.5s var(--ease);
+}
+
+[data-phase="germinatio"] .s10-stem { height: 12px; }
+[data-phase="plantula"]  .s10-stem  { height: 32px; }
+[data-phase="juvenile"]  .s10-stem  { height: 58px; }
+[data-phase="adult"]     .s10-stem  { height: 92px; }
+
+/* --- Daun --- */
+.s10-leaf {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 22px;
+  height: 14px;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+  border-radius: 0 60% 0 60%;
+  transform: translateX(-100%) translateY(0) rotate(-18deg) scale(0.4);
+  transform-origin: 100% 50%;
+  opacity: 0;
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.3);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease), bottom 0.5s var(--ease);
+}
+
+.s10-leaf--r1, .s10-leaf--r2 {
+  border-radius: 60% 0 60% 0;
+  transform: translateX(0%) translateY(0) rotate(18deg) scale(0.4);
+  transform-origin: 0% 50%;
+}
+
+/* Plantula: sepasang daun pertama muncul */
+[data-phase="plantula"] .s10-leaf--l1 { bottom: 26px; opacity: 1; transform: translateX(-100%) rotate(-20deg) scale(1); }
+[data-phase="plantula"] .s10-leaf--r1 { bottom: 26px; opacity: 1; transform: translateX(0%) rotate(20deg) scale(1); }
+
+/* Juvenile: daun pertama naik + sepasang daun kedua muncul */
+[data-phase="juvenile"] .s10-leaf--l1 { bottom: 22px; opacity: 1; transform: translateX(-100%) rotate(-22deg) scale(1); }
+[data-phase="juvenile"] .s10-leaf--r1 { bottom: 36px; opacity: 1; transform: translateX(0%) rotate(22deg) scale(1); }
+[data-phase="juvenile"] .s10-leaf--l2 { bottom: 50px; opacity: 1; transform: translateX(-100%) rotate(-18deg) scale(1); }
+
+/* Adult: 4 daun lengkap + sedikit lebih besar */
+[data-phase="adult"] .s10-leaf--l1 { bottom: 24px; opacity: 1; transform: translateX(-100%) rotate(-24deg) scale(1.1); }
+[data-phase="adult"] .s10-leaf--r1 { bottom: 40px; opacity: 1; transform: translateX(0%) rotate(24deg) scale(1.1); }
+[data-phase="adult"] .s10-leaf--l2 { bottom: 56px; opacity: 1; transform: translateX(-100%) rotate(-20deg) scale(1.1); }
+[data-phase="adult"] .s10-leaf--r2 { bottom: 72px; opacity: 1; transform: translateX(0%) rotate(20deg) scale(1.1); }
+
+/* --- Bunga: hanya fase adult --- */
+.s10-flower {
+  position: absolute;
+  bottom: 86px;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  transform: translateX(-50%) scale(0.4);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+
+[data-phase="adult"] .s10-flower {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.s10-petal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  margin: -5.5px 0 0 -5.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF, var(--color-secondary) 78%);
+}
+
+.s10-petal:nth-child(1) { transform: translateY(-8px); }
+.s10-petal:nth-child(2) { transform: rotate(72deg) translateY(-8px); }
+.s10-petal:nth-child(3) { transform: rotate(144deg) translateY(-8px); }
+.s10-petal:nth-child(4) { transform: rotate(216deg) translateY(-8px); }
+.s10-petal:nth-child(5) { transform: rotate(288deg) translateY(-8px); }
+
+.s10-flower-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFE8B0, var(--color-highlight));
+}
+
+/* =====================================================================
+   BAGIAN TENGAH (~40%) — MATERI (fade saat fase berubah)
+===================================================================== */
+.s10-info {
+  flex: 4 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(18px, 2.4vh, 26px) clamp(20px, 2.6vw, 30px);
+  border-radius: var(--radius-md);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 34px -22px rgba(31, 45, 38, 0.28);
+  transition: opacity 0.25s var(--ease);
+}
+
+.s10-info.is-fading {
+  opacity: 0;
+}
+
+.s10-info-tag {
+  align-self: flex-start;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: var(--color-primary-dark);
+  background: rgba(127, 199, 155, 0.2);
+  border: 1px solid rgba(46, 125, 70, 0.16);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+.s10-info-subtitle {
+  font-weight: 800;
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  color: var(--color-text);
+}
+
+.s10-info-desc {
+  font-size: clamp(0.95rem, 1vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--color-text-soft);
+  max-width: 80ch;
+}
+
+.s10-info-points {
+  margin-top: 2px;
+}
+
+/* =====================================================================
+   BAGIAN BAWAH (~15%) — SLIDER FASE CUSTOM
+===================================================================== */
+.s10-slider {
+  flex: 1.5 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: clamp(10px, 1.6vh, 16px) clamp(16px, 2.4vw, 28px);
+}
+
+.s10-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(46, 125, 70, 0.14);
+}
+
+.s10-track-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  transition: width 0.4s var(--ease);
+}
+
+.s10-knob {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--color-primary);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 10px -2px rgba(46, 125, 70, 0.4);
+  transition: left 0.4s var(--ease);
+  pointer-events: none;
+}
+
+.s10-dot {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(46, 125, 70, 0.35);
+  transform: translate(-50%, -50%);
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.s10-dot:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.s10-dot.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary-dark);
+}
+
+.s10-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.s10-label-btn {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-soft);
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.s10-label-btn:hover {
+  background: rgba(127, 199, 155, 0.16);
+}
+
+.s10-label-btn.is-active {
+  color: var(--color-primary-dark);
+  background: rgba(127, 199, 155, 0.24);
+}
+
+.s10-actions {
+  flex: 0 0 auto;
+}
+
+/* =====================================================================
+   FIX UTAMA: div pembungkus Slide 10 (.hewan-slide.s10-slide) butuh
+   tinggi PASTI, sama seperti pola .hewan-flow-slide di hewan.html.
+   Tanpa ini, .s10-wrap { height:100% } tidak punya acuan sehingga di
+   layar lebar (tidak kena media query mobile di bawah) semua bagian
+   kolaps/gepeng dan materi tidak kelihatan.
+===================================================================== */
+.s10-slide {
+  height: 100%;
+}
+
+/* =====================================================================
+   MOBILE (default, 0–767px) — susunan vertikal penuh, slider jadi
+   bar horizontal biasa di bawah materi.
+===================================================================== */
+@media (max-width: 767px) {
+  .s10-wrap { height: auto; }
+
+  .s10-columns { flex: none; }
+  .s10-stage { flex: none; height: min(30vh, 260px); }
+  .s10-info { flex: none; max-height: 30vh; }
+  .s10-slider { flex: none; }
+
+  .s10-labels { justify-content: flex-start; }
+}
+
+@media (max-width: 640px) {
+  .s10-labels .s10-label-btn span { display: none; }
+}
+
+/* =====================================================================
+   TABLET ke atas — 768px+
+   Layout berubah jadi 2 KOLOM: materi (±40%, kiri) & simulasi (±60%,
+   kanan). Ditata lewat grid-template-areas, JADI TIDAK PERLU mengubah
+   urutan DOM (yang tetap: simulasi dulu, materi kedua, untuk mobile).
+===================================================================== */
+@media (min-width: 768px) {
+  .s10-columns {
+    display: grid;
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+    grid-template-areas: "info stage";
+    gap: clamp(20px, 2.6vw, 40px);
+    align-items: stretch;
+  }
+
+  .s10-stage { grid-area: stage; flex: none; }
+  .s10-info  { grid-area: info; flex: none; }
+
+  .s10-wrap { gap: clamp(14px, 2vh, 22px); }
+}
+
+/* =====================================================================
+   TABLET — 768px sampai 1023px
+   Dua kolom dengan proporsi sedikit lebih kecil (sesuai permintaan:
+   "proporsi tetap dua kolom tetapi sedikit mengecil").
+===================================================================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .s10-sim { min-height: 260px; }
+  .s10-info { padding: clamp(18px, 2.2vh, 24px) clamp(20px, 2.2vw, 26px); }
+  .s10-info-desc { font-size: 1rem; }
+
+  /* --- Tanaman diperbesar tahap 1 (~1.7x dari mobile) --- */
+  .s10-soil { width: min(50%, 300px); height: clamp(16px, 2vw, 20px); }
+
+  [data-phase="germinatio"] .s10-stem { height: 20px; }
+  [data-phase="plantula"]  .s10-stem  { height: 54px; }
+  [data-phase="juvenile"]  .s10-stem  { height: 99px; }
+  [data-phase="adult"]     .s10-stem  { height: 156px; }
+
+  [data-phase="germinatio"] .s10-root { height: 17px; }
+  [data-phase="plantula"]  .s10-root  { height: 27px; }
+  [data-phase="juvenile"]  .s10-root  { height: 37px; }
+  [data-phase="adult"]     .s10-root  { height: 44px; }
+  .s10-root { width: 34px; }
+
+  .s10-leaf { width: 37px; height: 24px; }
+
+  [data-phase="plantula"] .s10-leaf--l1 { bottom: 44px; }
+  [data-phase="plantula"] .s10-leaf--r1 { bottom: 44px; }
+
+  [data-phase="juvenile"] .s10-leaf--l1 { bottom: 37px; }
+  [data-phase="juvenile"] .s10-leaf--r1 { bottom: 61px; }
+  [data-phase="juvenile"] .s10-leaf--l2 { bottom: 85px; }
+
+  [data-phase="adult"] .s10-leaf--l1 { bottom: 41px; }
+  [data-phase="adult"] .s10-leaf--r1 { bottom: 68px; }
+  [data-phase="adult"] .s10-leaf--l2 { bottom: 95px; }
+  [data-phase="adult"] .s10-leaf--r2 { bottom: 122px; }
+
+  .s10-flower { bottom: 146px; width: 44px; height: 44px; }
+  .s10-petal { width: 19px; height: 19px; margin: -9.5px 0 0 -9.5px; }
+  .s10-petal:nth-child(1) { transform: translateY(-13px); }
+  .s10-petal:nth-child(2) { transform: rotate(72deg) translateY(-13px); }
+  .s10-petal:nth-child(3) { transform: rotate(144deg) translateY(-13px); }
+  .s10-petal:nth-child(4) { transform: rotate(216deg) translateY(-13px); }
+  .s10-petal:nth-child(5) { transform: rotate(288deg) translateY(-13px); }
+  .s10-flower-core { width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; }
+
+  .s10-seed { width: 34px; height: 41px; margin-left: -17px; }
+}
+
+/* =====================================================================
+   DESKTOP / LAPTOP / TV TOUCH — mulai 1024px
+   - Simulasi & materi diberi proporsi tetap (bukan flex-grow polos)
+     supaya tidak gepeng di layar lebar-pendek (TV).
+   - Kontrol pindah fase dipindah jadi widget kecil mengambang di
+     pojok KIRI BAWAH (area ini kosong — hewan-chapter-nav ada di
+     tengah-kiri, hewan-float-nav di kanan-bawah), ukurannya kecil
+     tapi tetap nyaman disentuh di TV touch.
+===================================================================== */
+@media (min-width: 1024px) {
+  .s10-header { padding-top: clamp(10px, 1.4vh, 16px); }
+  .s10-title { font-size: clamp(1.8rem, 2.4vw, 2.4rem); }
+  .s10-subtitle { font-size: 0.95rem; }
+
+  .s10-stage { flex: 1 1 0; min-height: 0; }
+  .s10-sim { min-height: 380px; }
+
+  /* --- Tanaman diperbesar tahap 2 (~2.2x dari mobile) --- */
+  .s10-soil { width: min(50%, 360px); height: clamp(18px, 1.6vw, 22px); }
+
+  [data-phase="germinatio"] .s10-stem { height: 26px; }
+  [data-phase="plantula"]  .s10-stem  { height: 70px; }
+  [data-phase="juvenile"]  .s10-stem  { height: 128px; }
+  [data-phase="adult"]     .s10-stem  { height: 202px; }
+
+  [data-phase="germinatio"] .s10-root { height: 22px; }
+  [data-phase="plantula"]  .s10-root  { height: 35px; }
+  [data-phase="juvenile"]  .s10-root  { height: 48px; }
+  [data-phase="adult"]     .s10-root  { height: 57px; }
+  .s10-root { width: 44px; }
+
+  .s10-leaf { width: 48px; height: 31px; }
+
+  [data-phase="plantula"] .s10-leaf--l1 { bottom: 57px; }
+  [data-phase="plantula"] .s10-leaf--r1 { bottom: 57px; }
+
+  [data-phase="juvenile"] .s10-leaf--l1 { bottom: 48px; }
+  [data-phase="juvenile"] .s10-leaf--r1 { bottom: 79px; }
+  [data-phase="juvenile"] .s10-leaf--l2 { bottom: 110px; }
+
+  [data-phase="adult"] .s10-leaf--l1 { bottom: 53px; }
+  [data-phase="adult"] .s10-leaf--r1 { bottom: 88px; }
+  [data-phase="adult"] .s10-leaf--l2 { bottom: 123px; }
+  [data-phase="adult"] .s10-leaf--r2 { bottom: 158px; }
+
+  .s10-flower { bottom: 189px; width: 57px; height: 57px; }
+  .s10-petal { width: 24px; height: 24px; margin: -12px 0 0 -12px; }
+  .s10-petal:nth-child(1) { transform: translateY(-17px); }
+  .s10-petal:nth-child(2) { transform: rotate(72deg) translateY(-17px); }
+  .s10-petal:nth-child(3) { transform: rotate(144deg) translateY(-17px); }
+  .s10-petal:nth-child(4) { transform: rotate(216deg) translateY(-17px); }
+  .s10-petal:nth-child(5) { transform: rotate(288deg) translateY(-17px); }
+  .s10-flower-core { width: 20px; height: 20px; margin: -10px 0 0 -10px; }
+
+  .s10-seed { width: 44px; height: 53px; margin-left: -22px; }
+
+  .s10-info {
+    flex: 1 1 0;
+    min-height: 0;
+    padding: clamp(20px, 2.4vh, 28px) clamp(24px, 2.6vw, 34px);
+  }
+  .s10-info-desc { font-size: 1.05rem; line-height: 1.75; }
+  .s10-info-points li { font-size: 0.9rem; }
+
+  /* Beri ruang kosong di bawah supaya tidak tertutup widget slider */
+  .s10-wrap { padding-bottom: clamp(64px, 8vh, 88px); }
+
+  /* --- Slider jadi widget kecil mengambang, pojok kiri bawah --- */
+  .s10-slider {
+    position: fixed;
+    left: clamp(16px, 2.4vw, 32px);
+    bottom: clamp(20px, 3vh, 40px);
+    z-index: 40;
+    width: clamp(190px, 15vw, 240px);
+    padding: 10px 16px 12px;
+    border-radius: var(--radius-md);
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 16px 30px -18px rgba(31, 45, 38, 0.4);
+  }
+
+  .s10-track { height: 3px; }
+  .s10-knob { width: 14px; height: 14px; border-width: 2.5px; }
+  .s10-dot { width: 9px; height: 9px; border-width: 1.5px; }
+
+  /* Di widget kecil ini, cukup tampilkan NAMA FASE AKTIF saja supaya
+     tetap kecil & rapi — bukan lima tombol sekaligus. */
+  .s10-labels {
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .s10-label-btn {
+    display: none;
+    font-size: 0.78rem;
+    padding: 3px 4px;
+  }
+  .s10-label-btn.is-active {
+    display: inline-block;
+    background: none;
+    padding: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   DESKTOP BESAR — 1440px ke atas
+--------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+  .s10-sim { min-height: 460px; }
+  .s10-info-desc { font-size: 1.1rem; }
+  .s10-slider { width: clamp(210px, 13vw, 260px); }
+
+  /* --- Tanaman diperbesar tahap 3 (~2.8x dari mobile) --- */
+  .s10-soil { width: min(50%, 420px); height: 26px; }
+
+  [data-phase="germinatio"] .s10-stem { height: 34px; }
+  [data-phase="plantula"]  .s10-stem  { height: 90px; }
+  [data-phase="juvenile"]  .s10-stem  { height: 162px; }
+  [data-phase="adult"]     .s10-stem  { height: 258px; }
+
+  [data-phase="germinatio"] .s10-root { height: 28px; }
+  [data-phase="plantula"]  .s10-root  { height: 45px; }
+  [data-phase="juvenile"]  .s10-root  { height: 62px; }
+  [data-phase="adult"]     .s10-root  { height: 73px; }
+  .s10-root { width: 56px; }
+
+  .s10-leaf { width: 62px; height: 39px; }
+
+  [data-phase="plantula"] .s10-leaf--l1 { bottom: 73px; }
+  [data-phase="plantula"] .s10-leaf--r1 { bottom: 73px; }
+
+  [data-phase="juvenile"] .s10-leaf--l1 { bottom: 62px; }
+  [data-phase="juvenile"] .s10-leaf--r1 { bottom: 101px; }
+  [data-phase="juvenile"] .s10-leaf--l2 { bottom: 140px; }
+
+  [data-phase="adult"] .s10-leaf--l1 { bottom: 67px; }
+  [data-phase="adult"] .s10-leaf--r1 { bottom: 112px; }
+  [data-phase="adult"] .s10-leaf--l2 { bottom: 157px; }
+  [data-phase="adult"] .s10-leaf--r2 { bottom: 202px; }
+
+  .s10-flower { bottom: 241px; width: 73px; height: 73px; }
+  .s10-petal { width: 31px; height: 31px; margin: -15.5px 0 0 -15.5px; }
+  .s10-petal:nth-child(1) { transform: translateY(-22px); }
+  .s10-petal:nth-child(2) { transform: rotate(72deg) translateY(-22px); }
+  .s10-petal:nth-child(3) { transform: rotate(144deg) translateY(-22px); }
+  .s10-petal:nth-child(4) { transform: rotate(216deg) translateY(-22px); }
+  .s10-petal:nth-child(5) { transform: rotate(288deg) translateY(-22px); }
+  .s10-flower-core { width: 25px; height: 25px; margin: -12.5px 0 0 -12.5px; }
+
+  .s10-seed { width: 56px; height: 67px; margin-left: -28px; }
+}
+
+/* ---------------------------------------------------------------------
+   TV / 4K / SMARTBOARD TOUCH — 1920px ke atas
+   Widget slider dibuat sedikit lebih besar supaya nyaman disentuh
+   dari jarak jauh, tapi tetap ringkas (bukan full-width).
+--------------------------------------------------------------------- */
+@media (min-width: 1920px) {
+  .s10-sim { min-height: 560px; }
+  .s10-title { font-size: clamp(2.1rem, 2.1vw, 2.8rem); }
+  .s10-info-desc { font-size: 1.18rem; }
+  .s10-info-points li { font-size: 0.98rem; }
+
+  /* --- Tanaman diperbesar tahap 4 (~3.4x dari mobile, untuk TV) --- */
+  .s10-soil { width: min(50%, 500px); height: 32px; }
+
+  [data-phase="germinatio"] .s10-stem { height: 41px; }
+  [data-phase="plantula"]  .s10-stem  { height: 109px; }
+  [data-phase="juvenile"]  .s10-stem  { height: 197px; }
+  [data-phase="adult"]     .s10-stem  { height: 313px; }
+
+  [data-phase="germinatio"] .s10-root { height: 34px; }
+  [data-phase="plantula"]  .s10-root  { height: 54px; }
+  [data-phase="juvenile"]  .s10-root  { height: 75px; }
+  [data-phase="adult"]     .s10-root  { height: 88px; }
+  .s10-root { width: 68px; }
+
+  .s10-leaf { width: 75px; height: 48px; }
+
+  [data-phase="plantula"] .s10-leaf--l1 { bottom: 88px; }
+  [data-phase="plantula"] .s10-leaf--r1 { bottom: 88px; }
+
+  [data-phase="juvenile"] .s10-leaf--l1 { bottom: 75px; }
+  [data-phase="juvenile"] .s10-leaf--r1 { bottom: 122px; }
+  [data-phase="juvenile"] .s10-leaf--l2 { bottom: 170px; }
+
+  [data-phase="adult"] .s10-leaf--l1 { bottom: 82px; }
+  [data-phase="adult"] .s10-leaf--r1 { bottom: 136px; }
+  [data-phase="adult"] .s10-leaf--l2 { bottom: 190px; }
+  [data-phase="adult"] .s10-leaf--r2 { bottom: 245px; }
+
+  .s10-flower { bottom: 292px; width: 88px; height: 88px; }
+  .s10-petal { width: 37px; height: 37px; margin: -18.5px 0 0 -18.5px; }
+  .s10-petal:nth-child(1) { transform: translateY(-26px); }
+  .s10-petal:nth-child(2) { transform: rotate(72deg) translateY(-26px); }
+  .s10-petal:nth-child(3) { transform: rotate(144deg) translateY(-26px); }
+  .s10-petal:nth-child(4) { transform: rotate(216deg) translateY(-26px); }
+  .s10-petal:nth-child(5) { transform: rotate(288deg) translateY(-26px); }
+  .s10-flower-core { width: 30px; height: 30px; margin: -15px 0 0 -15px; }
+
+  .s10-seed { width: 68px; height: 82px; margin-left: -34px; }
+
+  .s10-slider {
+    width: clamp(240px, 12vw, 300px);
+    padding: 14px 20px 16px;
+  }
+  .s10-track { height: 4px; }
+  .s10-knob { width: 18px; height: 18px; border-width: 3px; }
+  .s10-dot { width: 12px; height: 12px; }
+  .s10-label-btn { font-size: 0.9rem; }
+}
+
+/* =====================================================================
+   TUMBUHAN.HTML — SLIDE 11 (REDESIGN TOTAL #2)
+   "Pertumbuhan Primer & Sekunder" — ilustrasi SVG + popup annotation
+   yang muncul dekat hotspot (bukan panel kiri).
+
+   File CSS terpisah, tidak menimpa file lain. Semua class memakai
+   prefix "s11-" khusus slide ini. Tidak menyentuh navigasi, progress
+   bar, floating navigation, atau slide lain.
+
+   Panel kiri (.s11-info) sekarang statis — hanya pengertian umum.
+   Semua penjelasan spesifik bagian tanaman tampil sebagai popup
+   annotation di dekat hotspot terkait, dengan leader line bergaya
+   anotasi (bukan panah segitiga).
+===================================================================== */
+
+.s11-slide {
+  height: 100%;
+}
+
+.s11-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: clamp(10px, 1.4vh, 16px);
+}
+
+/* --- Header --- */
+.s11-header {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  padding-top: clamp(14px, 2vh, 20px);
+}
+
+.s11-title { font-size: clamp(1.6rem, 2.8vw, 2.4rem); }
+.s11-subtitle { font-size: clamp(0.9rem, 1vw, 1.05rem); max-width: 62ch; }
+
+/* =====================================================================
+   KOLOM — mobile: vertikal (panel info dulu, lalu area simulasi).
+   >=768px: grid 2 kolom, panel ±25% (kiri) / simulasi ±75% (kanan).
+===================================================================== */
+.s11-columns {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vh, 20px);
+}
+
+@media (min-width: 768px) {
+  .s11-columns {
+    display: grid;
+    /* Ubah proporsi agar panel kiri lebih lebar dan seimbang */
+    grid-template-columns: minmax(280px, 0.3fr) minmax(0, 0.7fr);
+    grid-template-areas: "info stage";
+    gap: clamp(20px, 2.4vw, 36px);
+    align-items: stretch;
+  }
+
+  .s11-info  { grid-area: info; }
+  .s11-stage { grid-area: stage; }
+
+  /* Tambahan: Pusatkan plot dan sinkronkan kontainer dengan SVG */
+  .s11-scene {
+    justify-content: space-evenly;
+  }
+  
+  .s11-plot {
+    flex: 0 1 100%;
+    padding: 0 0 5%; /* Hapus padding kiri-kanan agar lebar persentase presisi */
+    max-width: 320px; /* Batasi kontainer, bukan SVG-nya */
+  }
+  
+  .s11-svg {
+    max-width: none; /* Lepaskan batas SVG agar mengikuti kontainer .s11-plot */
+    height: auto;
+  }
+}
+/* =====================================================================
+   KOLOM KIRI (±25%) — PANEL INFORMASI STATIS
+   Hanya pengertian umum; tidak berubah saat hotspot dipilih.
+===================================================================== */
+.s11-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: clamp(20px, 2.4vh, 28px) clamp(20px, 2.2vw, 28px);
+  border-radius: var(--radius-lg);
+  background: var(--color-glass);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 34px -22px rgba(31, 45, 38, 0.28);
+}
+
+.s11-info-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.s11-info-intro {
+  font-size: clamp(0.94rem, 1vw, 1.04rem);
+  line-height: 1.68;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.s11-info-hint {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  padding-top: 10px;
+  border-top: 1px solid rgba(46, 125, 70, 0.14);
+}
+
+.s11-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(46, 125, 70, 0.14);
+}
+
+.s11-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-soft);
+}
+
+.s11-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.s11-legend-item--primer .s11-legend-dot {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+.s11-legend-item--sekunder .s11-legend-dot {
+  background: linear-gradient(135deg, #A8794A, #6E5330);
+}
+
+/* =====================================================================
+   KOLOM KANAN (±75%) — DUA TANAMAN SVG BERDAMPINGAN
+===================================================================== */
+.s11-stage {
+  min-height: 360px;
+  flex: 1 1 0;
+}
+
+.s11-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  display: flex;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-glass-border);
+  background: linear-gradient(165deg, #F2FBF5 0%, #E4F6EA 55%, #D3ECDC 100%);
+  box-shadow: 0 22px 44px -22px rgba(31, 45, 38, 0.28);
+}
+
+.s11-scene::after {
+  content: '';
+  position: absolute;
+  top: 14%;
+  bottom: 14%;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(46, 125, 70, 0.16) 20%, rgba(46, 125, 70, 0.16) 80%, transparent);
+  z-index: 3;
+}
+
+/* --- Tanah menyambung sepanjang seluruh panggung --- */
+.s11-ground {
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  bottom: 0;
+  height: 15%;
+  z-index: 1;
+  border-radius: 50% 50% 0 0 / 24% 24% 0 0;
+  background: linear-gradient(180deg, #6FA972 0%, #4C7F52 55%, #3A5F40 100%);
+  box-shadow: inset 0 10px 18px -6px rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.s11-tuft {
+  position: absolute;
+  bottom: 12%;
+  z-index: 2;
+  width: 13px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.s11-tuft::before,
+.s11-tuft::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, var(--color-secondary), var(--color-primary));
+  transform-origin: bottom center;
+  animation: s11TuftSway 3s ease-in-out infinite alternate;
+}
+
+.s11-tuft::before { left: 1px; transform: rotate(-10deg); }
+.s11-tuft::after   { left: 7px; height: 78%; transform: rotate(9deg); animation-delay: -1s; }
+
+@keyframes s11TuftSway {
+  from { transform: rotate(-9deg); }
+  to   { transform: rotate(9deg); }
+}
+
+/* --- Setiap "petak" berisi satu tanaman SVG --- */
+.s11-plot {
+  position: relative;
+  flex: 1 1 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2;
+  padding: 0 8% 5%;
+}
+
+.s11-plot-label {
+  position: absolute;
+  top: clamp(16px, 2.4vh, 26px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  white-space: nowrap;
+  font-size: clamp(0.78rem, 0.95vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-primary-dark);
+  box-shadow: 0 10px 20px -12px rgba(31, 45, 38, 0.3);
+}
+
+.s11-plot--sekunder .s11-plot-label {
+  color: #6E5330;
+}
+
+/* =====================================================================
+   SVG TANAMAN — bentuk organik lewat path/bezier, bukan div kaku
+===================================================================== */
+.s11-svg {
+  width: 100%;
+  height: 100%;
+  max-width: 320px;
+  overflow: visible;
+  animation: s11PlantSway 4.2s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+
+@keyframes s11PlantSway {
+  0%, 100% { transform: rotate(-1deg); }
+  50%      { transform: rotate(1deg); }
+}
+
+/* --- Warna: tanaman primer (hijau) --- */
+.s11-root-main, .s11-root-branch {
+  stroke: #6E5330;
+  opacity: 0.9;
+}
+
+.s11-svg--primer .s11-stem-primer {
+  fill: var(--color-primary);
+}
+
+.s11-leaf-primer {
+  fill: var(--color-secondary);
+  stroke: var(--color-primary-dark);
+  stroke-width: 0.6;
+  stroke-opacity: 0.25;
+}
+
+.s11-bud-primer {
+  fill: #8FD19E;
+}
+
+/* --- Warna: tanaman sekunder (batang kayu) --- */
+.s11-root-main-sek, .s11-root-branch-sek {
+  stroke: #6E5330;
+  opacity: 0.92;
+}
+
+.s11-trunk-sekunder {
+  fill: #8B6B3D;
+}
+
+.s11-bark {
+  stroke: #6E5330;
+  stroke-width: 1.4;
+  opacity: 0.45;
+  fill: none;
+}
+
+.s11-cambium-mark {
+  stroke: rgba(110, 83, 48, 0.45);
+  transition: stroke 0.3s ease, opacity 0.3s ease;
+}
+
+.s11-leaf-sekunder {
+  fill: var(--color-primary);
+  stroke: var(--color-primary-dark);
+  stroke-width: 0.6;
+  stroke-opacity: 0.3;
+}
+
+/* --- Highlight saat hotspot terkait dipilih --- */
+.s11-part {
+  transition: filter 0.3s ease;
+}
+
+.s11-part.is-glow {
+  filter: brightness(1.16) drop-shadow(0 0 8px rgba(255, 201, 77, 0.6));
+}
+
+.s11-cambium-mark.is-glow {
+  stroke: var(--color-highlight);
+  stroke-width: 4;
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(255, 201, 77, 0.7));
+}
+
+/* =====================================================================
+   HOTSPOT — kecil, bulat, dekat bagian tanaman, animasi pulse halus
+===================================================================== */
+.s11-hotspot {
+  position: absolute;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.s11-hotspot-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255, 201, 77, 0.35);
+  animation: s11Pulse 2.1s ease-out infinite;
+}
+
+.s11-hotspot-dot {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-highlight);
+  border: 2px solid #fff;
+  box-shadow: 0 3px 8px -2px rgba(31, 45, 38, 0.4);
+}
+
+@keyframes s11Pulse {
+  0%   { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.s11-hotspot:hover { transform: scale(1.1); }
+.s11-hotspot.is-active { transform: scale(1.16); }
+.s11-hotspot.is-active .s11-hotspot-ring { animation-play-state: paused; opacity: 0; }
+.s11-hotspot.is-active .s11-hotspot-dot { background: var(--color-primary-dark); }
+
+/* --- Posisi hotspot: tanaman primer (persis di samping bagian tanaman) --- */
+.s11-hotspot--primer-stem {
+  top: 8%;
+  left: 61%;
+}
+
+.s11-hotspot--primer-root {
+  bottom: 3%;
+  left: 32%;
+}
+
+/* --- Posisi hotspot: tanaman sekunder --- */
+.s11-hotspot--sekunder-cambium {
+  top: 55%;
+  left: 66%;
+}
+
+.s11-hotspot--sekunder-batang {
+  top: 78%;
+  left: 68%;
+}
+
+/* =====================================================================
+   POPUP — annotation dekat hotspot (bukan di panel kiri)
+===================================================================== */
+.s11-popup {
+  position: absolute;
+  z-index: 7;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px) scale(0.96);
+  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease), visibility 0.28s var(--ease);
+  pointer-events: none;
+}
+
+.s11-popup.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.s11-popup-box {
+  position: relative;
+  width: min(320px, 74vw);
+  padding: 22px 26px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--color-glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 28px 56px -22px rgba(31, 45, 38, 0.38);
+}
+
+.s11-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: var(--color-text-soft);
+  background: rgba(46, 125, 70, 0.1);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.s11-popup-close:hover {
+  background: rgba(46, 125, 70, 0.18);
+  color: var(--color-primary-dark);
+}
+
+.s11-popup-tag {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  padding-right: 22px;
+  color: var(--color-primary-dark);
+}
+
+.s11-popup-tag[data-variant="sekunder"] {
+  color: #6E5330;
+}
+
+.s11-popup-title {
+  font-weight: 800;
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  line-height: 1.3;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.s11-popup-desc {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--color-text-soft);
+  margin-bottom: 12px;
+}
+
+.s11-popup-points {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.s11-popup-points li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.s11-popup-points li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: -1px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* =====================================================================
+   LEADER LINE — gaya annotation profesional (siku + titik), bukan
+   panah segitiga. Empat varian arah sesuai posisi popup relatif
+   terhadap hotspot-nya (top-left / bottom-left / top-right / bottom-right).
+===================================================================== */
+.s11-leader {
+  position: absolute;
+  width: 28px;
+  height: 26px;
+  pointer-events: none;
+}
+
+.s11-leader::before {
+  content: '';
+  position: absolute;
+  border-color: rgba(46, 125, 70, 0.5);
+  border-style: solid;
+}
+
+.s11-leader::after {
+  content: '';
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(46, 125, 70, 0.16);
+}
+
+/* Popup di kanan-bawah hotspot: siku turun lalu ke kanan, titik di pojok kiri-atas leader */
+.s11-leader--tl {
+  top: -26px;
+  left: -4px;
+}
+.s11-leader--tl::before {
+  top: 0; left: 3px;
+  width: 20px; height: 20px;
+  border-width: 0 0 1.5px 1.5px;
+  border-radius: 0 0 0 10px;
+}
+.s11-leader--tl::after { top: -3.5px; left: 0px; }
+
+/* Popup di kanan-atas hotspot: siku naik lalu ke kanan */
+.s11-leader--bl {
+  bottom: -26px;
+  left: -4px;
+}
+.s11-leader--bl::before {
+  bottom: 0; left: 3px;
+  width: 20px; height: 20px;
+  border-width: 1.5px 0 0 1.5px;
+  border-radius: 10px 0 0 0;
+}
+.s11-leader--bl::after { bottom: -3.5px; left: 0px; }
+
+/* Popup di kiri-bawah hotspot: siku turun lalu ke kiri */
+.s11-leader--tr {
+  top: -26px;
+  right: -4px;
+}
+.s11-leader--tr::before {
+  top: 0; right: 3px;
+  width: 20px; height: 20px;
+  border-width: 0 1.5px 1.5px 0;
+  border-radius: 0 0 10px 0;
+}
+.s11-leader--tr::after { top: -3.5px; right: 0px; }
+
+/* Popup di kiri-atas hotspot: siku naik lalu ke kiri */
+.s11-leader--br {
+  bottom: -26px;
+  right: -4px;
+}
+.s11-leader--br::before {
+  bottom: 0; right: 3px;
+  width: 20px; height: 20px;
+  border-width: 1.5px 1.5px 0 0;
+  border-radius: 0 10px 0 0;
+}
+.s11-leader--br::after { bottom: -3.5px; right: 0px; }
+
+/* =====================================================================
+   POSISI POPUP — ditambatkan relatif terhadap hotspot masing-masing,
+   memastikan leader line selalu presisi mengarah ke hotspot.
+===================================================================== */
+.s11-popup--primer-stem {
+  top: calc(8% + 44px);
+  left: calc(61% + 4px);
+}
+
+.s11-popup--primer-root {
+  bottom: calc(3% + 44px);
+  left: calc(32% + 4px);
+}
+
+.s11-popup--sekunder-cambium {
+  top: calc(55% + 44px);
+  right: calc(34% + 4px);
+}
+
+.s11-popup--sekunder-batang {
+  bottom: calc(22% + 44px);
+  right: calc(32% + 4px);
+}
+
+/* =====================================================================
+   RESPONSIVE
+===================================================================== */
+
+/* --- Mobile (<768px): panel dulu, dua tanaman ditumpuk vertikal --- */
+@media (max-width: 767px) {
+  .s11-wrap { height: auto; }
+
+  .s11-scene { flex-direction: column; min-height: 560px; }
+  .s11-scene::after { top: 50%; bottom: auto; left: 6%; right: 6%; width: auto; height: 1px; }
+  .s11-plot { flex: 1 1 50%; padding: 0 6% 4%; }
+
+  .s11-svg { max-width: 220px; }
+
+  .s11-hotspot { width: 32px; height: 32px; }
+  .s11-hotspot-dot { width: 13px; height: 13px; }
+
+  .s11-popup-box { width: min(260px, 78vw); padding: 18px 20px; }
+}
+
+/* --- Tablet: dua kolom, sedikit mengecil --- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .s11-scene { min-height: 400px; }
+  .s11-info-intro, .s11-info-hint { font-size: 0.9rem; }
+}
+
+/* --- Desktop / Laptop --- */
+@media (min-width: 1024px) {
+  .s11-scene { min-height: 500px; }
+  .s11-plot { max-width: 340px; }
+
+  .s11-hotspot { width: 34px; height: 34px; }
+  .s11-hotspot-dot { width: 14px; height: 14px; }
+
+  .s11-popup-box { width: min(340px, 40vw); padding: 26px 30px; }
+  .s11-popup-title { font-size: 1.3rem; }
+  .s11-popup-desc { font-size: 0.96rem; line-height: 1.75; }
+  .s11-popup-points li { font-size: 0.9rem; }
+}
+
+@media (min-width: 1440px) {
+  .s11-scene { min-height: 580px; }
+  .s11-svg { max-width: 380px; }
+}
+
+/* --- TV / 4K / Smartboard touchscreen: prioritas utama --- */
+
+@media (min-width: 1920px) {
+  .s11-scene { min-height: 700px; }
+  .s11-title { font-size: clamp(2.1rem, 2.1vw, 2.8rem); }
+  .s11-info-intro { font-size: 1.08rem; }
+  .s11-info-hint { font-size: 0.95rem; }
+
+  .s11-plot { max-width: 440px; }
+
+  .s11-hotspot { width: 40px; height: 40px; }
+  .s11-hotspot-dot { width: 16px; height: 16px; }
+
+  .s11-popup-box { width: min(380px, 30vw); padding: 30px 34px; }
+  .s11-popup-title { font-size: 1.5rem; }
+  .s11-popup-desc { font-size: 1.05rem; }
+  .s11-popup-points li { font-size: 1rem; }
+
+  .s11-plot-label { font-size: 1rem; padding: 10px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s11-svg,
+  .s11-tuft::before,
+  .s11-tuft::after,
+  .s11-hotspot-ring {
+    animation: none !important;
+  }
+}
+
+.s11-leaf-vein {
+  fill: none;
+  stroke: var(--color-primary-dark);
+  stroke-width: 0.8;
+  stroke-opacity: 0.3;
+  stroke-linecap: round;
+}
+
+.s11-branch-sek {
+  stroke: #8B6B3D;
+}
+/* =====================================================
+   TUMBUHAN - SLIDE 12: FAKTOR PERTUMBUHAN
+===================================================== */
+
+.s12-wrapper {
+    display: grid;
+    grid-template-columns: 0.3fr 0.7fr;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    gap: 40px;
+}
+
+/* --- Kolom Kiri --- */
+.s12-side-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 20px;
+}
+
+.s12-main-title {
+    font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--color-text);
+}
+
+.s12-main-desc {
+    font-size: 1.1rem;
+    color: var(--color-text-soft);
+    line-height: 1.6;
+}
+
+.s12-category-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.s12-mini-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: white;
+    border: 1px solid rgba(46, 125, 70, 0.1);
+    border-radius: 18px;
+    box-shadow: 0 10px 20px -10px rgba(0,0,0,0.05);
+}
+
+.s12-mini-icon {
+    font-size: 1.5rem;
+}
+
+.s12-mini-text strong {
+    display: block;
+    color: var(--color-primary-dark);
+}
+
+.s12-mini-text span {
+    font-size: 0.85rem;
+    color: var(--color-text-soft);
+}
+
+/* --- Kolom Kanan (Visual) --- */
+.s12-visual-area {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.s12-plant-center {
+    width: 250px;
+    z-index: 5;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.1));
+}
+
+.s12-svg-plant {
+    width: 100%;
+    height: auto;
+}
+
+.s12-lines-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* --- Info Cards (Hexagonal Layout) --- */
+.s12-info-card {
+    position: absolute;
+    width: 200px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid white;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px -10px rgba(31, 45, 38, 0.15);
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: s12CardReveal 0.6s ease forwards;
+    animation-delay: var(--delay);
+}
+
+.s12-card-head {
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.s12-info-card p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--color-text-soft);
+    margin: 0;
+}
+
+/* Posisi Kartu */
+.card-cahaya  { top: 5%;  left: 50%; transform: translateX(-50%); }
+.card-air      { bottom: 5%; left: 50%; transform: translateX(-50%); }
+.card-genetik  { top: 40%; left: 5%; }
+.card-suhu     { top: 40%; right: 5%; }
+.card-hormon   { bottom: 15%; left: 10%; }
+.card-hara     { bottom: 15%; right: 10%; }
+
+/* --- Animasi --- */
+@keyframes s12CardReveal {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.s12-animate-growth {
+    transform-origin: bottom;
+    animation: s12Grow 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes s12Grow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+.s12-leaf-sway path {
+    transform-origin: center bottom;
+    animation: s12Sway 3s ease-in-out infinite alternate;
+}
+
+.s12-leaf-sway path:nth-child(2) { animation-delay: 0.5s; }
+.s12-leaf-sway path:nth-child(3) { animation-delay: 1s; }
+
+@keyframes s12Sway {
+    from { transform: rotate(-3deg); }
+    to { transform: rotate(3deg); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .s12-wrapper {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+        padding: 40px 0;
+    }
+    
+    .s12-visual-area {
+        height: 600px;
+    }
+    
+    .s12-info-card {
+        width: 160px;
+    }
+}
+
+@media (max-height: 700px) {
+    .s12-main-title { font-size: 1.5rem; }
+    .s12-info-card { padding: 10px; }
+}
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0b0f19; /* Warna background gelap modern */
+}
+
+#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Berada tepat di belakang semua elemen */
+  pointer-events: none; /* Biar klik mouse tetap tembus ke kartu/tombol */
+}

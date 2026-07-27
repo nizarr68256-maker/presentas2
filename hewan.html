@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Materi Hewan | IPA Kelas IX</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<!-- Canvas untuk efek partikel background -->
+<canvas id="bgCanvas"></canvas>
+
+<body>
+
+  <div class="app">
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-mark" aria-hidden="true">🌿</span>
+        <span class="logo-text">Pertumbuhan &amp; Perkembangan</span>
+      </div>
+
+      <a class="home-link" href="index.html">
+        Home
+      </a>
+    </header>
+
+    <!-- ===================== SLIDE VIEWPORT ===================== -->
+    <main class="slide-viewport">
+
+      <!-- ================= SLIDE 1 — PENGERTIAN HEWAN ================= -->
+      <section class="slide is-active" data-slide="0">
+        <div class="hewan-slide">
+
+          <a class="hewan-back-link" href="index.html">
+            Kembali ke Pilih Materi
+          </a>
+
+          <div class="hewan-hero">
+
+            <!-- Kolom Kiri — Materi -->
+            <div class="hewan-content">
+              <span class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Materi Hewan · 01
+              </span>
+
+              <h1 class="hewan-title">Pengertian Hewan</h1>
+
+              <p class="hewan-desc">
+                Hewan adalah makhluk hidup yang memiliki kemampuan bergerak secara aktif,
+                membutuhkan makanan dari makhluk hidup lain (heterotrof), bernapas, tumbuh,
+                berkembang, berkembang biak, serta peka terhadap rangsangan. Hewan tidak dapat
+                membuat makanan sendiri seperti tumbuhan.
+              </p>
+
+              <div class="hewan-info-card">
+                <span class="hewan-info-label">Ciri Umum Hewan</span>
+                <ul class="hewan-info-list">
+                  <li>Makhluk hidup</li>
+                  <li>Bergerak aktif</li>
+                  <li>Tidak membuat makanan sendiri (heterotrof)</li>
+                  <li>Bernapas</li>
+                  <li>Tumbuh dan berkembang</li>
+                  <li>Berkembang biak</li>
+                  <li>Peka terhadap rangsangan</li>
+                </ul>
+              </div>
+
+              <div class="hewan-actions">
+                <button class="btn btn-primary btn-large" type="button" data-next>
+                  <span>Selanjutnya</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Kolom Kanan — Gambar -->
+            <div class="hewan-image">
+              <img
+                src="vertifikasi.jpg"
+                alt="Pengertian Hewan"
+                class="hewan-image-real">
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= SLIDE 2 — EMBRIO ================= -->
+      <section class="slide" data-slide="1">
+        <div class="hewan-slide">
+
+          <a class="hewan-back-link" href="index.html">
+            Kembali ke Pilih Materi
+          </a>
+
+          <div class="hewan-hero hewan-hero--reverse">
+
+            <!-- Kolom Kanan (tampil kiri karena reverse) — Materi -->
+            <div class="hewan-content">
+              <span class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Materi Hewan · 02
+              </span>
+
+              <h1 class="hewan-title">Embrio</h1>
+
+              <p class="hewan-desc">
+                Setelah sel telur dibuahi oleh sel sperma (fertilisasi), terbentuklah zigot yang
+                terus membelah dan berkembang menjadi embrio. Embrio adalah tahap awal
+                perkembangan individu baru sebelum tumbuh menjadi bentuk yang menyerupai
+                induknya.
+              </p>
+
+              <div class="hewan-info-card">
+                <span class="hewan-info-label">Tahap Perkembangan Embrio</span>
+                <ul class="hewan-info-list">
+                  <li>Zigot — hasil peleburan sel telur dan sperma</li>
+                  <li>Morula — pembelahan zigot menjadi kumpulan sel padat</li>
+                  <li>Blastula — terbentuknya rongga berisi cairan</li>
+                  <li>Gastrula — terbentuknya lapisan-lapisan embrio</li>
+                  <li>Organogenesis — pembentukan organ-organ tubuh</li>
+                  <li>Janin — embrio menyerupai bentuk individu dewasa</li>
+                </ul>
+              </div>
+
+              <div class="hewan-actions">
+                <button class="btn hewan-btn-secondary" type="button" data-goto="0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>Sebelumnya</span>
+                </button>
+
+                <button class="btn btn-primary btn-large" type="button" data-next>
+                  <span>Selanjutnya</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Kolom Kiri (tampil kanan karena reverse) — Gambar -->
+            <div class="hewan-image">
+              <img
+                src="embrio.jpg"
+                alt="Embrio"
+                class="hewan-image-real">
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+      <!-- ================= SLIDE 3 — PERBANDINGAN CARA BERKEMBANG BIAK ================= -->
+      <section class="slide" data-slide="2">
+        <div class="hewan-slide">
+
+          <a class="hewan-back-link" href="index.html">
+            Kembali ke Pilih Materi
+          </a>
+
+          <div class="hewan-compare">
+
+            <!-- Kolom Kiri — Navigasi Card (30%) -->
+            <div class="hewan-compare-nav">
+              <span class="hero-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Materi Hewan · 03
+              </span>
+
+              <h1 class="hewan-compare-title">Perbandingan Cara<br>Berkembang Biak Hewan</h1>
+
+              <div class="hewan-compare-btns">
+                <button
+                  class="hewan-compare-btn hewan-compare-btn--active"
+                  type="button"
+                  data-compare-btn
+                  data-target="ovipar">
+                  <span class="hewan-compare-btn-icon">🥚</span>
+                  <span class="hewan-compare-btn-text">
+                    <span class="hewan-compare-btn-name">Ovipar</span>
+                    <span class="hewan-compare-btn-desc">Bertelur</span>
+                  </span>
+                </button>
+
+                <button
+                  class="hewan-compare-btn"
+                  type="button"
+                  data-compare-btn
+                  data-target="ovovivipar">
+                  <span class="hewan-compare-btn-icon">🥚🐣</span>
+                  <span class="hewan-compare-btn-text">
+                    <span class="hewan-compare-btn-name">Ovovivipar</span>
+                    <span class="hewan-compare-btn-desc">Bertelur &amp; Beranak</span>
+                  </span>
+                </button>
+
+                <button
+                  class="hewan-compare-btn"
+                  type="button"
+                  data-compare-btn
+                  data-target="vivipar">
+                  <span class="hewan-compare-btn-icon">🤰</span>
+                  <span class="hewan-compare-btn-text">
+                    <span class="hewan-compare-btn-name">Vivipar</span>
+                    <span class="hewan-compare-btn-desc">Beranak</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Kolom Kanan — Konten Dinamis (70%) -->
+            <div class="hewan-compare-content">
+
+              <!-- Panel OVIPAR -->
+              <div class="hewan-compare-panel hewan-compare-panel--active" data-panel="ovipar">
+                <div class="hewan-compare-text">
+                  <span class="hewan-compare-tag">Ovipar</span>
+                  <h2 class="hewan-compare-heading">Ovipar (Bertelur)</h2>
+
+                  <div class="hewan-diagram" aria-hidden="true">
+                    <span class="hewan-diagram-item">🐔</span>
+                    <span class="hewan-diagram-arrow">↓</span>
+                    <span class="hewan-diagram-item">🥚</span>
+                    <span class="hewan-diagram-arrow">↓</span>
+                    <span class="hewan-diagram-item">🐣</span>
+                  </div>
+
+                  <p class="hewan-compare-desc">
+                  Hewan ovipar adalah hewan yang berkembang biak dengan cara bertelur. Embrio berkembang di dalam telur yang berada di luar tubuh induknya hingga menetas. Cadangan makanan embrio berasal dari kuning telur, sehingga pertumbuhannya tidak bergantung langsung pada tubuh induk setelah telur dikeluarkan.
+                  </p>
+
+                  <div class="hewan-example-card">
+                    <span class="hewan-info-label">Contoh Hewan</span>
+                    <ul class="hewan-example-list">
+                      <li>Ayam</li>
+                      <li>Burung</li>
+                      <li>Bebek</li>
+                      <li>Penyu</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="hewan-compare-image">
+                  <img
+                    src="ovipar.jpg"
+                    alt="Ovipar"
+                    class="hewan-image-real">
+                </div>
+              </div>
+
+              <!-- Panel OVOVIVIPAR -->
+              <div class="hewan-compare-panel" data-panel="ovovivipar">
+                <div class="hewan-compare-text">
+                  <span class="hewan-compare-tag">Ovovivipar</span>
+                  <h2 class="hewan-compare-heading">Ovovivipar (Bertelur &amp; Beranak)</h2>
+
+                  <div class="hewan-diagram" aria-hidden="true">
+                    <span class="hewan-diagram-item">🦈</span>
+                    <span class="hewan-diagram-arrow">↓</span>
+                    <span class="hewan-diagram-item">🥚<sup class="hewan-diagram-note">tetap di dalam induk</sup></span>
+                    <span class="hewan-diagram-arrow">↓</span>
+                    <span class="hewan-diagram-item">🐣</span>
+                  </div>
+
+                  <p class="hewan-compare-desc">
+                    Hewan ovovivipar berkembang biak dengan cara bertelur dan melahirkan. Telur terbentuk di dalam tubuh induk dan tidak dikeluarkan ke luar. Embrio berkembang di dalam telur dengan memanfaatkan cadangan makanan dari kuning telur. Setelah menetas di dalam tubuh induk, anak kemudian lahir dalam keadaan hidup.
+                  </p>
+
+                  <div class="hewan-example-card">
+                    <span class="hewan-info-label">Contoh Hewan</span>
+                    <ul class="hewan-example-list">
+                      <li>Hiu</li>
+                      <li>Ikan Pari</li>
+                      <li>Kadal</li>
+                      <li>Ular Boa</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="hewan-compare-image">
+                  <img
+                    src="ovivipar.jpg"
+                    alt="Ovovivipar"
+                    class="hewan-image-real">
+                </div>
+              </div>
+
+              <!-- Panel VIVIPAR -->
+              <div class="hewan-compare-panel" data-panel="vivipar">
+                <div class="hewan-compare-text">
+                  <span class="hewan-compare-tag">Vivipar</span>
+                  <h2 class="hewan-compare-heading">Vivipar (Beranak)</h2>
+
+                  <div class="hewan-diagram" aria-hidden="true">
+                    <span class="hewan-diagram-item">🐱</span>
+                    <span class="hewan-diagram-arrow">↓</span>
+                    <span class="hewan-diagram-item">🤰</span>
+                    <span class="hewan-diagram-arrow">↓</span>
+                    <span class="hewan-diagram-item">🐱</span>
+                  </div>
+
+                  <p class="hewan-compare-desc">
+                    Hewan vivipar adalah hewan yang berkembang biak dengan cara melahirkan. Embrio berkembang di dalam rahim induk dan memperoleh nutrisi melalui plasenta. Setelah pertumbuhan sempurna, anak dilahirkan dan biasanya dirawat oleh induknya hingga mampu hidup mandiri.
+                  </p>
+
+                  <div class="hewan-example-card">
+                    <span class="hewan-info-label">Contoh Hewan</span>
+                    <ul class="hewan-example-list">
+                      <li>Kucing</li>
+                      <li>Sapi</li>
+                      <li>Gajah</li>
+                      <li>Kambing</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="hewan-compare-image">
+                  <img
+                    src="vivipar.jpg"
+                    alt="Vivipar"
+                    class="hewan-image-real">
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="hewan-actions hewan-compare-nav-actions">
+            <button class="btn hewan-btn-secondary" type="button" data-goto="1">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Sebelumnya</span>
+            </button>
+
+            <button class="btn btn-primary btn-large" type="button" data-next>
+              <span>Selanjutnya</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </section>
+<!-- ================= SLIDE 4 — BAGAIMANA HEWAN BERKEMBANG ================= -->
+<section class="slide" data-slide="3">
+  <div class="hewan-slide hewan-flow-slide">
+
+    <a class="hewan-back-link" href="index.html">
+      Kembali ke Pilih Materi
+    </a>
+
+    <div class="hewan-flow-header">
+      <span class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Materi Hewan · 04
+      </span>
+      <h1 class="hewan-flow-title">Bagaimana Hewan Berkembang</h1>
+    </div>
+
+    <div class="hewan-flow-top">
+
+<!-- ===== DIAGRAM CIRCULAR ===== -->
+<div class="hewan-flow-diagram">
+
+  <!-- DIAGRAM: TANPA METAMORFOSIS (3 node) -->
+  <svg class="hewan-flow-scene hewan-flow-scene--active" data-flow-scene="tanpa" viewBox="-20 -15 340 270">
+    <defs>
+      <marker id="flowArrowTanpa" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#2E7D46"/>
+      </marker>
+      <linearGradient id="flowSkyTanpa" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#BEE6FA"/>
+        <stop offset="60%" stop-color="#DFF3F8"/>
+        <stop offset="100%" stop-color="#EAF7EA"/>
+      </linearGradient>
+    </defs>
+
+    <rect x="-20" y="-15" width="340" height="270" fill="url(#flowSkyTanpa)"/>
+    <circle class="hewan-flow-sun" cx="255" cy="42" r="20"/>
+    <g class="hewan-flow-cloud hewan-flow-cloud--1"><ellipse cx="55" cy="38" rx="22" ry="9"/><ellipse cx="72" cy="35" rx="14" ry="7"/></g>
+    <g class="hewan-flow-cloud hewan-flow-cloud--2"><ellipse cx="175" cy="26" rx="18" ry="7"/><ellipse cx="190" cy="23" rx="11" ry="5"/></g>
+
+    <g class="hewan-flow-bg">
+      <path class="hewan-flow-ground" d="M0,220 Q75,205 150,218 T300,212 V240 H0 Z"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--1" cx="40" cy="45" r="20"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--2" cx="265" cy="70" r="16"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--3" cx="255" cy="200" r="12"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--1" cx="30" cy="120" r="2.5"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--2" cx="270" cy="130" r="2"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--3" cx="150" cy="30" r="2"/>
+      <g class="hewan-flow-grass">
+        <rect x="12" y="222" width="4" height="16" rx="2"/>
+        <rect x="24" y="224" width="4" height="13" rx="2"/>
+        <rect x="280" y="223" width="4" height="15" rx="2"/>
+        <rect x="290" y="225" width="4" height="12" rx="2"/>
+      </g>
+    </g>
+
+    <path class="hewan-flow-arrow" d="M150,60 A120,120 0 0 1 232,170" marker-end="url(#flowArrowTanpa)"/>
+    <path class="hewan-flow-arrow" d="M232,170 A120,120 0 0 1 68,170" marker-end="url(#flowArrowTanpa)"/>
+    <path class="hewan-flow-arrow" d="M68,170 A120,120 0 0 1 150,60" marker-end="url(#flowArrowTanpa)"/>
+
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="150" cy="17" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 150 55" to="360 150 55" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="150" cy="55" r="33"/>
+        <circle class="hewan-flow-node-ball" cx="150" cy="55" r="30" style="animation-delay:0s"/>
+        <text x="150" y="67" text-anchor="middle" font-size="34">🐔</text>
+      </g>
+    </g>
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="235" cy="137" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 235 175" to="360 235 175" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="235" cy="175" r="33"/>
+        <circle class="hewan-flow-node-ball" cx="235" cy="175" r="30" style="animation-delay:2s"/>
+        <text x="235" y="187" text-anchor="middle" font-size="30">🥚</text>
+      </g>
+    </g>
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="65" cy="137" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 65 175" to="360 65 175" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="65" cy="175" r="33"/>
+        <circle class="hewan-flow-node-ball" cx="65" cy="175" r="30" style="animation-delay:4s"/>
+        <text x="65" y="187" text-anchor="middle" font-size="30">🐥</text>
+      </g>
+    </g>
+  </svg>
+
+  <!-- DIAGRAM: METAMORFOSIS SEMPURNA (4 node) -->
+  <svg class="hewan-flow-scene" data-flow-scene="sempurna" viewBox="-20 -15 340 290">
+    <defs>
+      <marker id="flowArrowSempurna" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#2E7D46"/>
+      </marker>
+      <linearGradient id="flowSkySempurna" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#BEE6FA"/>
+        <stop offset="60%" stop-color="#DFF3F8"/>
+        <stop offset="100%" stop-color="#EAF7EA"/>
+      </linearGradient>
+    </defs>
+
+    <rect x="-20" y="-15" width="340" height="290" fill="url(#flowSkySempurna)"/>
+    <circle class="hewan-flow-sun" cx="30" cy="35" r="18"/>
+    <g class="hewan-flow-cloud hewan-flow-cloud--1"><ellipse cx="230" cy="30" rx="20" ry="8"/><ellipse cx="246" cy="27" rx="13" ry="6"/></g>
+    <g class="hewan-flow-cloud hewan-flow-cloud--2"><ellipse cx="90" cy="20" rx="16" ry="6"/><ellipse cx="103" cy="18" rx="10" ry="5"/></g>
+
+    <g class="hewan-flow-bg">
+      <path class="hewan-flow-ground" d="M0,235 Q75,222 150,232 T300,228 V260 H0 Z"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--1" cx="35" cy="50" r="20"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--2" cx="270" cy="60" r="16"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--3" cx="260" cy="215" r="13"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--1" cx="25" cy="140" r="2.5"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--2" cx="275" cy="150" r="2"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--3" cx="150" cy="20" r="2"/>
+      <g class="hewan-flow-grass">
+        <rect x="14" y="238" width="4" height="17" rx="2"/>
+        <rect x="26" y="240" width="4" height="14" rx="2"/>
+        <rect x="270" y="237" width="4" height="16" rx="2"/>
+        <rect x="282" y="239" width="4" height="13" rx="2"/>
+      </g>
+    </g>
+
+    <path class="hewan-flow-arrow" d="M150,55 A135,135 0 0 1 245,140" marker-end="url(#flowArrowSempurna)"/>
+    <path class="hewan-flow-arrow" d="M245,140 A135,135 0 0 1 150,225" marker-end="url(#flowArrowSempurna)"/>
+    <path class="hewan-flow-arrow" d="M150,225 A135,135 0 0 1 55,140" marker-end="url(#flowArrowSempurna)"/>
+    <path class="hewan-flow-arrow" d="M55,140 A135,135 0 0 1 150,55" marker-end="url(#flowArrowSempurna)"/>
+
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="150" cy="12" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 150 50" to="360 150 50" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="150" cy="50" r="31"/>
+        <circle class="hewan-flow-node-ball" cx="150" cy="50" r="28" style="animation-delay:0s"/>
+        <text x="150" y="61" text-anchor="middle" font-size="32">🦋</text>
+      </g>
+    </g>
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="250" cy="102" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 250 140" to="360 250 140" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="250" cy="140" r="31"/>
+        <circle class="hewan-flow-node-ball" cx="250" cy="140" r="28" style="animation-delay:2s"/>
+        <text x="250" y="151" text-anchor="middle" font-size="30">🥚</text>
+      </g>
+    </g>
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="150" cy="192" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 150 230" to="360 150 230" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="150" cy="230" r="31"/>
+        <circle class="hewan-flow-node-ball" cx="150" cy="230" r="28" style="animation-delay:4s"/>
+        <text x="150" y="241" text-anchor="middle" font-size="30">🐛</text>
+      </g>
+    </g>
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="50" cy="102" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 50 140" to="360 50 140" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="50" cy="140" r="31"/>
+        <circle class="hewan-flow-node-ball" cx="50" cy="140" r="28" style="animation-delay:6s"/>
+        <text x="50" y="151" text-anchor="middle" font-size="28">🥜</text>
+      </g>
+    </g>
+  </svg>
+
+  <!-- DIAGRAM: METAMORFOSIS TIDAK SEMPURNA (4 node) -->
+  <svg class="hewan-flow-scene" data-flow-scene="tidak" viewBox="-20 -15 340 290">
+    <defs>
+      <marker id="flowArrowTidak" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#2E7D46"/>
+      </marker>
+      <linearGradient id="flowSkyTidak" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#BEE6FA"/>
+        <stop offset="60%" stop-color="#DFF3F8"/>
+        <stop offset="100%" stop-color="#EAF7EA"/>
+      </linearGradient>
+    </defs>
+
+    <rect x="-20" y="-15" width="340" height="290" fill="url(#flowSkyTidak)"/>
+    <circle class="hewan-flow-sun" cx="260" cy="38" r="19"/>
+    <g class="hewan-flow-cloud hewan-flow-cloud--1"><ellipse cx="60" cy="32" rx="19" ry="8"/><ellipse cx="75" cy="29" rx="12" ry="6"/></g>
+    <g class="hewan-flow-cloud hewan-flow-cloud--2"><ellipse cx="185" cy="22" rx="16" ry="6"/><ellipse cx="198" cy="20" rx="10" ry="5"/></g>
+
+    <g class="hewan-flow-bg">
+      <path class="hewan-flow-ground" d="M0,235 Q75,222 150,232 T300,228 V260 H0 Z"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--1" cx="38" cy="48" r="19"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--2" cx="268" cy="65" r="15"/>
+      <circle class="hewan-flow-orb hewan-flow-orb--3" cx="258" cy="212" r="12"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--1" cx="28" cy="135" r="2.5"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--2" cx="272" cy="145" r="2"/>
+      <circle class="hewan-flow-sparkle hewan-flow-sparkle--3" cx="150" cy="22" r="2"/>
+      <text x="60" y="250" font-size="16">🌸</text>
+      <text x="240" y="252" font-size="14">🌼</text>
+      <g class="hewan-flow-grass">
+        <rect x="14" y="238" width="4" height="17" rx="2"/>
+        <rect x="26" y="240" width="4" height="14" rx="2"/>
+        <rect x="270" y="237" width="4" height="16" rx="2"/>
+        <rect x="282" y="239" width="4" height="13" rx="2"/>
+      </g>
+    </g>
+
+    <path class="hewan-flow-arrow" d="M150,55 A135,135 0 0 1 245,140" marker-end="url(#flowArrowTidak)"/>
+    <path class="hewan-flow-arrow" d="M245,140 A135,135 0 0 1 150,225" marker-end="url(#flowArrowTidak)"/>
+    <path class="hewan-flow-arrow" d="M150,225 A135,135 0 0 1 55,140" marker-end="url(#flowArrowTidak)"/>
+    <path class="hewan-flow-arrow" d="M55,140 A135,135 0 0 1 150,55" marker-end="url(#flowArrowTidak)"/>
+
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="150" cy="12" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 150 50" to="360 150 50" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="150" cy="50" r="31"/>
+        <circle class="hewan-flow-node-ball" cx="150" cy="50" r="28" style="animation-delay:0s"/>
+        <text x="150" y="61" text-anchor="middle" font-size="28">🦗</text>
+      </g>
+    </g>
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="250" cy="102" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 250 140" to="360 250 140" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="250" cy="140" r="31"/>
+        <circle class="hewan-flow-node-ball" cx="250" cy="140" r="28" style="animation-delay:2s"/>
+        <text x="250" y="151" text-anchor="middle" font-size="24">🦗</text>
+      </g>
+    </g>
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="150" cy="192" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 150 230" to="360 150 230" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="150" cy="230" r="31"/>
+        <circle class="hewan-flow-node-ball" cx="150" cy="230" r="28" style="animation-delay:4s"/>
+        <text x="150" y="241" text-anchor="middle" font-size="24">🦗</text>
+      </g>
+    </g>
+    <g class="hewan-flow-node">
+      <circle class="hewan-flow-node-orbit-dot" cx="50" cy="102" r="4">
+        <animateTransform attributeName="transform" type="rotate" from="0 50 140" to="360 50 140" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <g class="hewan-flow-orbit-group">
+        <circle class="hewan-flow-node-ring" cx="50" cy="140" r="31"/>
+        <circle class="hewan-flow-node-ball" cx="50" cy="140" r="28" style="animation-delay:6s"/>
+        <text x="50" y="151" text-anchor="middle" font-size="26">🥚</text>
+      </g>
+    </g>
+  </svg>
+
+</div>
+
+      <!-- ===== MENU ===== -->
+      <div class="hewan-flow-menu">
+        <span class="hewan-flow-menu-label">Menu</span>
+
+        <button class="hewan-flow-menu-btn hewan-flow-menu-btn--active" type="button" data-flow-target="tanpa">
+          <span class="hewan-flow-menu-dot"></span>
+          <span>Tanpa Metamorfosis</span>
+        </button>
+
+        <button class="hewan-flow-menu-btn" type="button" data-flow-target="sempurna">
+          <span class="hewan-flow-menu-dot"></span>
+          <span>Metamorfosis Sempurna</span>
+        </button>
+
+        <button class="hewan-flow-menu-btn" type="button" data-flow-target="tidak">
+          <span class="hewan-flow-menu-dot"></span>
+          <span>Metamorfosis Tidak Sempurna</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- ===== PANEL PENJELASAN (besar, ~40-45% tinggi) ===== -->
+    <div class="hewan-flow-info">
+      <h2 class="hewan-flow-info-title" data-flow-field="title">Tanpa Metamorfosis (Ametamorfosis)</h2>
+      <p class="hewan-flow-info-desc" data-flow-field="desc">
+        Hewan muda menetas dengan bentuk yang sudah menyerupai induknya. Tidak ada
+        perubahan bentuk tubuh yang mencolok, hanya bertambah besar seiring waktu.
+      </p>
+
+      <div class="hewan-flow-info-cols">
+        <div class="hewan-flow-info-card">
+          <span class="hewan-info-label">Tahapan</span>
+          <ul class="hewan-flow-info-stages" data-flow-field="stages">
+            <li>Telur menetas menjadi anak hewan</li>
+            <li>Anak hewan tumbuh membesar</li>
+            <li>Berkembang menjadi hewan dewasa</li>
+          </ul>
+        </div>
+
+        <div class="hewan-flow-info-card">
+          <span class="hewan-info-label">Contoh Hewan</span>
+          <ul class="hewan-example-list" data-flow-field="examples">
+            <li>Ayam</li>
+            <li>Itik</li>
+            <li>Burung</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="hewan-actions hewan-flow-nav-actions">
+      <button class="btn hewan-btn-secondary" type="button" data-goto="2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Sebelumnya</span>
+      </button>
+
+      <button class="btn btn-primary btn-large" type="button" data-next>
+        <span>Selesai</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+    </main>
+
+<!-- ===================== PROGRESS BAR ===================== -->
+    <div class="progress-nav" aria-label="Progress presentasi">
+      <span class="progress-step-label" data-label-for="0">01 · Pengertian Hewan</span>
+
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+        <div class="progress-marker"></div>
+      </div>
+
+      <span class="progress-step-label" data-label-for="1">02 · Embrio</span>
+      <span class="progress-step-label" data-label-for="2">03 · Berkembang Biak</span>
+      <span class="progress-step-label" data-label-for="3">04 · Hewan Muda</span>
+    </div>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+      &copy; 2026 Pertumbuhan &amp; Perkembangan Hewan dan Tumbuhan — Kelompok 4
+    </footer>
+
+<!-- ===================== TOMBOL PINDAH BAB (TENGAH KIRI) =====================
+         Isi data-prev-chapter / data-next-chapter dengan file bab yang dituju.
+         Kosongkan (misal data-prev-chapter="") jika tidak ada bab sebelumnya/berikutnya
+         — tombol terkait akan otomatis tersembunyi. -->
+    <div class="hewan-chapter-nav" aria-label="Navigasi antar bab">
+      <a
+        class="hewan-chapter-btn"
+        id="chapterPrevBtn"
+        href="index.html"
+        data-prev-chapter="index.html"
+        aria-label="Kembali ke bab sebelumnya"
+      >
+        <span aria-hidden="true">▲</span>
+      </a>
+      <a
+        class="hewan-chapter-btn"
+        id="chapterNextBtn"
+        href="tumbuhan.html"
+        data-next-chapter="tumbuhan.html"
+        aria-label="Lanjut ke bab berikutnya"
+      >
+        <span aria-hidden="true">▼</span>
+      </a>
+    </div>
+
+    <!-- ===================== TOMBOL PINDAH SLIDE (POJOK KANAN BAWAH) ===================== -->
+    <div class="hewan-float-nav" aria-label="Navigasi cepat antar slide">
+      <button class="hewan-float-btn" id="floatPrevBtn" type="button" aria-label="Slide sebelumnya">
+        <span aria-hidden="true"><</span>
+      </button>
+      <button class="hewan-float-btn" id="floatNextBtn" type="button" aria-label="Slide berikutnya">
+        <span aria-hidden="true">></span>
+      </button>
+    </div>
+
+  </div>
+
+
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
