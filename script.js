@@ -598,3 +598,126 @@ document.addEventListener('DOMContentLoaded', () => {
     part.classList.add('is-glow');
   });
 });
+/* =====================================================
+   ADDITIONAL DRAGGABLE POPUP FOR SLIDE 11
+===================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const popups = document.querySelectorAll('.s11-popup');
+
+  popups.forEach(popup => {
+    const box = popup.querySelector('.s11-popup-box');
+    let isDragging = false;
+    let startX, startY, initialX, initialY;
+
+    // Fungsi mulai drag
+    const dragStart = (e) => {
+      // Hanya mulai jika target bukan tombol close
+      if (e.target.closest('[data-close]')) return;
+      
+      isDragging = true;
+      const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+      startX = clientX;
+      startY = clientY;
+
+      // Ambil posisi saat ini
+      const style = window.getComputedStyle(popup);
+      initialX = parseInt(style.left, 10);
+      initialY = parseInt(style.top, 10);
+      
+      popup.style.transition = 'none'; // Matikan transisi saat drag
+      box.style.cursor = 'grabbing';
+    };
+
+    // Fungsi proses drag
+    const dragging = (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+
+      const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+      const dx = clientX - startX;
+      const dy = clientY - startY;
+
+      popup.style.left = (initialX + dx) + 'px';
+      popup.style.top = (initialY + dy) + 'px';
+    };
+
+    // Fungsi berhenti drag
+    const dragEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      popup.style.transition = ''; // Kembalikan transisi CSS
+      box.style.cursor = '';
+    };
+
+    // Event Listeners Mouse
+    box.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', dragging);
+    document.addEventListener('mouseup', dragEnd);
+
+    // Event Listeners Touch (Smartboard/TV)
+    box.addEventListener('touchstart', dragStart, { passive: false });
+    document.addEventListener('touchmove', dragging, { passive: false });
+    document.addEventListener('touchend', dragEnd);
+  });
+});
+/* =====================================================
+   FITUR DRAGGABLE UNTUK POPUP SLIDE 11
+===================================================== */
+function initDraggablePopups() {
+  const popups = document.querySelectorAll('.s11-popup');
+
+  popups.forEach(popup => {
+    const box = popup.querySelector('.s11-popup-box');
+    let isDragging = false;
+    let startX, startY, initialLeft, initialTop;
+
+    box.addEventListener('mousedown', startDrag);
+    box.addEventListener('touchstart', startDrag, { passive: false });
+
+    function startDrag(e) {
+      if (e.target.closest('[data-close]')) return;
+      
+      isDragging = true;
+      const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+      
+      startX = clientX;
+      startY = clientY;
+      
+      initialLeft = popup.offsetLeft;
+      initialTop = popup.offsetTop;
+
+      document.addEventListener('mousemove', drag);
+      document.addEventListener('touchmove', drag, { passive: false });
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchend', stopDrag);
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      if (e.type === 'touchmove') e.preventDefault(); 
+
+      const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+      const dx = clientX - startX;
+      const dy = clientY - startY;
+
+      popup.style.left = `${initialLeft + dx}px`;
+      popup.style.top = `${initialTop + dy}px`;
+    }
+
+    function stopDrag() {
+      isDragging = false;
+      document.removeEventListener('mousemove', drag);
+      document.removeEventListener('touchmove', drag);
+    }
+  });
+}
+
+// Jalankan fungsi draggable
+document.addEventListener('DOMContentLoaded', initDraggablePopups);

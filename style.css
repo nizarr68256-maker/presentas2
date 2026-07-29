@@ -2163,12 +2163,13 @@ a:active {
 
 /* ---------------------------------------------------------------------
    TV / 4K / SMARTBOARD — 1920px ke atas
+   (Catatan: aturan .app max-width DIPINDAH ke blok tier terpisah di bawah
+   agar 1920px, 2560px, dan 3840px masing-masing punya lebar kontainer
+   sendiri. Properti lain di blok ini — logo, judul, gambar, diagram,
+   tombol — TETAP seperti semula dan akan disesuaikan lagi khusus per
+   slide pada tahap berikutnya, bukan pada tahap fondasi ini.)
 --------------------------------------------------------------------- */
 @media (min-width: 1920px) {
-  .app {
-    max-width: 1700px;
-  }
-
   .logo-mark {
     width: 38px;
     height: 38px;
@@ -2216,6 +2217,54 @@ a:active {
     font-size: 1.05rem;
   }
 }
+
+/* =====================================================================
+   FONDASI — KONTAINER .app BERTINGKAT UNTUK LAYAR BESAR
+   =====================================================================
+   Tujuan: di layar besar, konten TIDAK melebar penuh mengikuti viewport
+   (yang membuatnya terasa "gepeng"/kosong seperti halaman biasa),
+   tapi juga TIDAK berhenti di satu angka tetap untuk semua ukuran di
+   atas 1920px (yang membuat TV 4K terasa seperti hanya menampilkan
+   versi kecil di tengah layar, dengan margin kosong berlebihan).
+
+   Setiap tingkatan menaikkan max-width secara proporsional & moderat —
+   mirip pendekatan aplikasi presentasi (Canva Present, Gamma): kontainer
+   ikut melebar mengikuti layar, tapi kenaikannya melandai (tidak 1:1
+   dengan lebar layar) supaya tetap ada margin nyaman di kiri-kanan dan
+   baris teks tidak menjadi terlalu panjang untuk dibaca.
+
+   Tier laptop (1024–1439px: 1450px) dan desktop (1440–1919px: 1550px)
+   di atas TIDAK disentuh sama sekali — sesuai permintaan agar tampilan
+   yang sudah bagus di laptop tidak berubah.
+===================================================================== */
+
+/* --- Tier 1: 1920px – 2559px (monitor besar / ambang 2K) ---
+   Nilai 1700px ini SAMA seperti sebelumnya (tidak berubah), hanya kini
+   dibatasi rentangnya agar tidak otomatis berlaku untuk 2560px & 3840px. */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .app {
+    max-width: 1700px;
+  }
+}
+
+/* --- Tier 2: 2560px – 3839px (monitor 2K/QHD sungguhan, mis. 27"-32") --- */
+@media (min-width: 2560px) and (max-width: 3839px) {
+  .app {
+    max-width: 1900px;
+  }
+}
+
+/* --- Tier 3: 3840px ke atas (TV 4K / Smartboard) ---
+   Margin dibuat lebih lega (bukan mengejar lebar penuh 3840px) karena
+   di layar sebesar ini konten biasanya dilihat dari jarak yang lebih
+   jauh (ruang kelas / presentasi), sehingga lebar baca yang nyaman
+   lebih penting daripada memenuhi seluruh piksel yang tersedia. */
+@media (min-width: 3840px) {
+  .app {
+    max-width: 2200px;
+  }
+}
+
 /* =====================================================
    STIKER MATERI — WhatsApp-style, pojok kanan bawah card
 ===================================================== */
@@ -3583,7 +3632,7 @@ a:active {
   .s11-plot {
     flex: 0 1 100%;
     padding: 0 0 5%; /* Hapus padding kiri-kanan agar lebar persentase presisi */
-    max-width: 320px; /* Batasi kontainer, bukan SVG-nya */
+    max-width: clamp(400px, 25vw, 650px); /* Batasi kontainer, bukan SVG-nya */
   }
   
   .s11-svg {
@@ -3751,188 +3800,93 @@ a:active {
   padding: 0 8% 5%;
 }
 
+/* --- perbaikan typo pada aturan yang terpotong --- */
 .s11-plot-label {
   position: absolute;
   top: clamp(16px, 2.4vh, 26px);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 5;
-  white-space: nowrap;
-  font-size: clamp(0.78rem, 0.95vw, 0.92rem);
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  padding: 8px 18px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.62);
-  border: 1px solid var(--color-glass-border);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   color: var(--color-primary-dark);
-  box-shadow: 0 10px 20px -12px rgba(31, 45, 38, 0.3);
-}
-
-.s11-plot--sekunder .s11-plot-label {
-  color: #6E5330;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--color-glass-border);
+  padding: 5px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  z-index: 4;
 }
 
 /* =====================================================================
-   SVG TANAMAN — bentuk organik lewat path/bezier, bukan div kaku
+   BAGIAN YANG HILANG — SVG, HOTSPOT, POPUP (Slide 11)
 ===================================================================== */
+
+/* --- SVG tanaman --- */
 .s11-svg {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  max-width: 320px;
-  overflow: visible;
-  animation: s11PlantSway 4.2s ease-in-out infinite;
-  transform-origin: 50% 100%;
+  display: block;
 }
 
-@keyframes s11PlantSway {
-  0%, 100% { transform: rotate(-1deg); }
-  50%      { transform: rotate(1deg); }
-}
-
-/* --- Warna: tanaman primer (hijau) --- */
-.s11-root-main, .s11-root-branch {
-  stroke: #6E5330;
-  opacity: 0.9;
-}
-
-.s11-svg--primer .s11-stem-primer {
-  fill: var(--color-primary);
-}
-
-.s11-leaf-primer {
-  fill: var(--color-secondary);
-  stroke: var(--color-primary-dark);
-  stroke-width: 0.6;
-  stroke-opacity: 0.25;
-}
-
-.s11-bud-primer {
-  fill: #8FD19E;
-}
-
-/* --- Warna: tanaman sekunder (batang kayu) --- */
-.s11-root-main-sek, .s11-root-branch-sek {
-  stroke: #6E5330;
-  opacity: 0.92;
-}
-
-.s11-trunk-sekunder {
-  fill: #8B6B3D;
-}
-
-.s11-bark {
-  stroke: #6E5330;
-  stroke-width: 1.4;
-  opacity: 0.45;
-  fill: none;
-}
-
-.s11-cambium-mark {
-  stroke: rgba(110, 83, 48, 0.45);
-  transition: stroke 0.3s ease, opacity 0.3s ease;
-}
-
-.s11-leaf-sekunder {
-  fill: var(--color-primary);
-  stroke: var(--color-primary-dark);
-  stroke-width: 0.6;
-  stroke-opacity: 0.3;
-}
-
-/* --- Highlight saat hotspot terkait dipilih --- */
 .s11-part {
-  transition: filter 0.3s ease;
+  transition: filter 0.3s var(--ease);
 }
 
 .s11-part.is-glow {
-  filter: brightness(1.16) drop-shadow(0 0 8px rgba(255, 201, 77, 0.6));
+  filter: drop-shadow(0 0 10px rgba(255, 201, 77, 0.9)) brightness(1.08);
 }
 
-.s11-cambium-mark.is-glow {
-  stroke: var(--color-highlight);
-  stroke-width: 4;
-  opacity: 1;
-  filter: drop-shadow(0 0 6px rgba(255, 201, 77, 0.7));
-}
-
-/* =====================================================================
-   HOTSPOT — kecil, bulat, dekat bagian tanaman, animasi pulse halus
-===================================================================== */
+/* --- Hotspot --- */
 .s11-hotspot {
   position: absolute;
-  z-index: 6;
+  z-index: 5;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  transition: transform 0.2s ease;
-}
-
-.s11-hotspot-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: rgba(255, 201, 77, 0.35);
-  animation: s11Pulse 2.1s ease-out infinite;
 }
 
 .s11-hotspot-dot {
-  position: relative;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--color-highlight);
   border: 2px solid #fff;
   box-shadow: 0 3px 8px -2px rgba(31, 45, 38, 0.4);
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
 }
 
-@keyframes s11Pulse {
-  0%   { transform: scale(0.6); opacity: 0.9; }
-  100% { transform: scale(2.2); opacity: 0; }
+.s11-hotspot-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 201, 77, 0.55);
+  animation: s11HotspotPulse 2s ease-out infinite;
 }
 
-.s11-hotspot:hover { transform: scale(1.1); }
-.s11-hotspot.is-active { transform: scale(1.16); }
-.s11-hotspot.is-active .s11-hotspot-ring { animation-play-state: paused; opacity: 0; }
-.s11-hotspot.is-active .s11-hotspot-dot { background: var(--color-primary-dark); }
-
-/* --- Posisi hotspot: tanaman primer (persis di samping bagian tanaman) --- */
-.s11-hotspot--primer-stem {
-  top: 8%;
-  left: 61%;
+@keyframes s11HotspotPulse {
+  0%   { transform: scale(0.7); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
 }
 
-.s11-hotspot--primer-root {
-  bottom: 3%;
-  left: 32%;
+.s11-hotspot:hover .s11-hotspot-dot,
+.s11-hotspot.is-active .s11-hotspot-dot {
+  transform: scale(1.15);
+  background: var(--color-primary);
 }
 
-/* --- Posisi hotspot: tanaman sekunder --- */
-.s11-hotspot--sekunder-cambium {
-  top: 55%;
-  left: 66%;
-}
-
-.s11-hotspot--sekunder-batang {
-  top: 78%;
-  left: 68%;
-}
-
-/* =====================================================================
-   POPUP — annotation dekat hotspot (bukan di panel kiri)
-===================================================================== */
+/* --- Popup annotation: KUNCI PERBAIKAN BUG UTAMA --- */
 .s11-popup {
   position: absolute;
-  z-index: 7;
+  z-index: 10;
+  width: min(85vw, 320px);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px) scale(0.96);
-  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease), visibility 0.28s var(--ease);
+  transform: translateY(8px) scale(0.96);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
   pointer-events: none;
 }
 
@@ -3945,28 +3899,32 @@ a:active {
 
 .s11-popup-box {
   position: relative;
-  width: min(320px, 74vw);
-  padding: 22px 26px;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.88);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(16px, 2vw, 22px);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.86);
   border: 1px solid var(--color-glass-border);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 28px 56px -22px rgba(31, 45, 38, 0.38);
+  box-shadow: 0 24px 46px -22px rgba(31, 45, 38, 0.35);
+  cursor: grab;
 }
 
 .s11-popup-close {
   position: absolute;
   top: 10px;
   right: 10px;
+  width: 26px;
+  height: 26px;
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
   border-radius: 50%;
+  font-size: 0.8rem;
   color: var(--color-text-soft);
   background: rgba(46, 125, 70, 0.1);
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 
 .s11-popup-close:hover {
@@ -3975,253 +3933,61 @@ a:active {
 }
 
 .s11-popup-tag {
-  display: block;
-  font-size: 0.72rem;
+  align-self: flex-start;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
-  margin-bottom: 8px;
-  padding-right: 22px;
   color: var(--color-primary-dark);
+  background: rgba(127, 199, 155, 0.22);
+  border: 1px solid rgba(46, 125, 70, 0.16);
+  padding: 5px 12px;
+  border-radius: 999px;
 }
 
 .s11-popup-tag[data-variant="sekunder"] {
-  color: #6E5330;
+  color: #6E4A2E;
+  background: rgba(217, 138, 61, 0.2);
+  border-color: rgba(110, 74, 46, 0.22);
 }
 
 .s11-popup-title {
   font-weight: 800;
-  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
-  line-height: 1.3;
+  font-size: clamp(1.02rem, 1.3vw, 1.18rem);
   color: var(--color-text);
-  margin-bottom: 8px;
+  padding-right: 22px;
 }
 
 .s11-popup-desc {
-  font-size: 0.92rem;
-  line-height: 1.7;
+  font-size: 0.88rem;
+  line-height: 1.62;
   color: var(--color-text-soft);
-  margin-bottom: 12px;
 }
 
-.s11-popup-points {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.s11-popup-media {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.4);
 }
 
-.s11-popup-points li {
-  position: relative;
-  padding-left: 22px;
-  font-size: 0.86rem;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--color-text);
+.s11-popup-illustration {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.s11-popup-points li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  top: -1px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-/* =====================================================================
-   LEADER LINE — gaya annotation profesional (siku + titik), bukan
-   panah segitiga. Empat varian arah sesuai posisi popup relatif
-   terhadap hotspot-nya (top-left / bottom-left / top-right / bottom-right).
-===================================================================== */
 .s11-leader {
-  position: absolute;
-  width: 28px;
-  height: 26px;
+  display: none;
+}
+  
+  
+  #bgCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
   pointer-events: none;
-}
-
-.s11-leader::before {
-  content: '';
-  position: absolute;
-  border-color: rgba(46, 125, 70, 0.5);
-  border-style: solid;
-}
-
-.s11-leader::after {
-  content: '';
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(46, 125, 70, 0.16);
-}
-
-/* Popup di kanan-bawah hotspot: siku turun lalu ke kanan, titik di pojok kiri-atas leader */
-.s11-leader--tl {
-  top: -26px;
-  left: -4px;
-}
-.s11-leader--tl::before {
-  top: 0; left: 3px;
-  width: 20px; height: 20px;
-  border-width: 0 0 1.5px 1.5px;
-  border-radius: 0 0 0 10px;
-}
-.s11-leader--tl::after { top: -3.5px; left: 0px; }
-
-/* Popup di kanan-atas hotspot: siku naik lalu ke kanan */
-.s11-leader--bl {
-  bottom: -26px;
-  left: -4px;
-}
-.s11-leader--bl::before {
-  bottom: 0; left: 3px;
-  width: 20px; height: 20px;
-  border-width: 1.5px 0 0 1.5px;
-  border-radius: 10px 0 0 0;
-}
-.s11-leader--bl::after { bottom: -3.5px; left: 0px; }
-
-/* Popup di kiri-bawah hotspot: siku turun lalu ke kiri */
-.s11-leader--tr {
-  top: -26px;
-  right: -4px;
-}
-.s11-leader--tr::before {
-  top: 0; right: 3px;
-  width: 20px; height: 20px;
-  border-width: 0 1.5px 1.5px 0;
-  border-radius: 0 0 10px 0;
-}
-.s11-leader--tr::after { top: -3.5px; right: 0px; }
-
-/* Popup di kiri-atas hotspot: siku naik lalu ke kiri */
-.s11-leader--br {
-  bottom: -26px;
-  right: -4px;
-}
-.s11-leader--br::before {
-  bottom: 0; right: 3px;
-  width: 20px; height: 20px;
-  border-width: 1.5px 1.5px 0 0;
-  border-radius: 0 10px 0 0;
-}
-.s11-leader--br::after { bottom: -3.5px; right: 0px; }
-
-/* =====================================================================
-   POSISI POPUP — ditambatkan relatif terhadap hotspot masing-masing,
-   memastikan leader line selalu presisi mengarah ke hotspot.
-===================================================================== */
-.s11-popup--primer-stem {
-  top: calc(8% + 44px);
-  left: calc(61% + 4px);
-}
-
-.s11-popup--primer-root {
-  bottom: calc(3% + 44px);
-  left: calc(32% + 4px);
-}
-
-.s11-popup--sekunder-cambium {
-  top: calc(55% + 44px);
-  right: calc(34% + 4px);
-}
-
-.s11-popup--sekunder-batang {
-  bottom: calc(22% + 44px);
-  right: calc(32% + 4px);
-}
-
-/* =====================================================================
-   RESPONSIVE
-===================================================================== */
-
-/* --- Mobile (<768px): panel dulu, dua tanaman ditumpuk vertikal --- */
-@media (max-width: 767px) {
-  .s11-wrap { height: auto; }
-
-  .s11-scene { flex-direction: column; min-height: 560px; }
-  .s11-scene::after { top: 50%; bottom: auto; left: 6%; right: 6%; width: auto; height: 1px; }
-  .s11-plot { flex: 1 1 50%; padding: 0 6% 4%; }
-
-  .s11-svg { max-width: 220px; }
-
-  .s11-hotspot { width: 32px; height: 32px; }
-  .s11-hotspot-dot { width: 13px; height: 13px; }
-
-  .s11-popup-box { width: min(260px, 78vw); padding: 18px 20px; }
-}
-
-/* --- Tablet: dua kolom, sedikit mengecil --- */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .s11-scene { min-height: 400px; }
-  .s11-info-intro, .s11-info-hint { font-size: 0.9rem; }
-}
-
-/* --- Desktop / Laptop --- */
-@media (min-width: 1024px) {
-  .s11-scene { min-height: 500px; }
-  .s11-plot { max-width: 340px; }
-
-  .s11-hotspot { width: 34px; height: 34px; }
-  .s11-hotspot-dot { width: 14px; height: 14px; }
-
-  .s11-popup-box { width: min(340px, 40vw); padding: 26px 30px; }
-  .s11-popup-title { font-size: 1.3rem; }
-  .s11-popup-desc { font-size: 0.96rem; line-height: 1.75; }
-  .s11-popup-points li { font-size: 0.9rem; }
-}
-
-@media (min-width: 1440px) {
-  .s11-scene { min-height: 580px; }
-  .s11-svg { max-width: 380px; }
-}
-
-/* --- TV / 4K / Smartboard touchscreen: prioritas utama --- */
-
-@media (min-width: 1920px) {
-  .s11-scene { min-height: 700px; }
-  .s11-title { font-size: clamp(2.1rem, 2.1vw, 2.8rem); }
-  .s11-info-intro { font-size: 1.08rem; }
-  .s11-info-hint { font-size: 0.95rem; }
-
-  .s11-plot { max-width: 440px; }
-
-  .s11-hotspot { width: 40px; height: 40px; }
-  .s11-hotspot-dot { width: 16px; height: 16px; }
-
-  .s11-popup-box { width: min(380px, 30vw); padding: 30px 34px; }
-  .s11-popup-title { font-size: 1.5rem; }
-  .s11-popup-desc { font-size: 1.05rem; }
-  .s11-popup-points li { font-size: 1rem; }
-
-  .s11-plot-label { font-size: 1rem; padding: 10px 22px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .s11-svg,
-  .s11-tuft::before,
-  .s11-tuft::after,
-  .s11-hotspot-ring {
-    animation: none !important;
-  }
-}
-
-.s11-leaf-vein {
-  fill: none;
-  stroke: var(--color-primary-dark);
-  stroke-width: 0.8;
-  stroke-opacity: 0.3;
-  stroke-linecap: round;
-}
-
-.s11-branch-sek {
-  stroke: #8B6B3D;
 }
 /* =====================================================
    TUMBUHAN - SLIDE 12: FAKTOR PERTUMBUHAN
@@ -4384,42 +4150,4 @@ a:active {
 @keyframes s12Sway {
     from { transform: rotate(-3deg); }
     to { transform: rotate(3deg); }
-}
-
-/* --- Responsive --- */
-@media (max-width: 1024px) {
-    .s12-wrapper {
-        grid-template-columns: 1fr;
-        overflow-y: auto;
-        padding: 40px 0;
-    }
-    
-    .s12-visual-area {
-        height: 600px;
-    }
-    
-    .s12-info-card {
-        width: 160px;
-    }
-}
-
-@media (max-height: 700px) {
-    .s12-main-title { font-size: 1.5rem; }
-    .s12-info-card { padding: 10px; }
-}
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #0b0f19; /* Warna background gelap modern */
-}
-
-#bgCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1; /* Berada tepat di belakang semua elemen */
-  pointer-events: none; /* Biar klik mouse tetap tembus ke kartu/tombol */
 }

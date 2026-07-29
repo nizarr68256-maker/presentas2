@@ -343,17 +343,15 @@
               <!-- ===== KOLOM KANAN (±75%) — DUA TANAMAN SVG BERDAMPINGAN ===== -->
               <div class="s11-stage">
 <div class="s11-scene" id="s11Scene">
-  <!-- Dekorasi Latar Belakang -->
   <div class="s11-ground" aria-hidden="true"></div>
   <div class="s11-tuft" style="left:6%"></div>
   <div class="s11-tuft" style="left:41%"></div>
   <div class="s11-tuft" style="left:59%"></div>
   <div class="s11-tuft" style="left:92%"></div>
 
-  <!-- ===================== PETAK KIRI: PERTUMBUHAN PRIMER ===================== -->
+  <!-- PETAK KIRI: PERTUMBUHAN PRIMER -->
   <div class="s11-plot s11-plot--primer">
     <span class="s11-plot-label">Pertumbuhan Primer</span>
-
     <svg class="s11-svg s11-svg--primer" viewBox="0 0 220 420" preserveAspectRatio="xMidYMax meet">
       <defs>
         <linearGradient id="gradPrimerStem" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#88D698"/><stop offset="50%" stop-color="#4EAF67"/><stop offset="100%" stop-color="#368F51"/></linearGradient>
@@ -368,98 +366,110 @@
         <path d="M107,395 Q110,280 106,165 L114,165 Q110,280 113,395 Z" fill="url(#gradPrimerStem)"/>
         <path d="M107,340 Q75,340 65,315 Q90,305 107,330" fill="url(#gradPrimerLeaf)"/><path d="M113,300 Q145,300 155,275 Q130,265 113,290" fill="url(#gradPrimerLeaf)"/><path d="M107,260 Q80,250 72,225 Q95,220 107,250" fill="url(#gradPrimerLeaf)"/><path d="M113,220 Q140,210 148,185 Q125,180 113,210" fill="url(#gradPrimerLeaf)"/>
         <g transform="translate(110, 150)">
-          <g id="petals">
-            <ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(0)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(60)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(120)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(180)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(240)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(300)"/>
-          </g>
+          <g><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(0)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(60)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(120)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(180)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(240)"/><ellipse cx="0" cy="-22" rx="6" ry="14" fill="url(#gradPetal)" transform="rotate(300)"/></g>
           <circle r="12" fill="#5D4037"/>
         </g>
       </g>
     </svg>
 
-    <!-- Hotspot Primer -->
-    <button class="s11-hotspot is-active" style="left: 50%; top: 38%; z-index: 10;" type="button" data-hotspot="primer-stem">
+    <!-- Hotspot: Ujung Batang -->
+    <button class="s11-hotspot is-active" style="left: 50%; top: 38%;" type="button" data-hotspot="primer-stem">
       <span class="s11-hotspot-ring"></span><span class="s11-hotspot-dot"></span>
     </button>
-    <div class="s11-popup is-open" style="left: 5%; top: 20%; z-index: 9999;" data-popup="primer-stem">
+    <div class="s11-popup is-open" style="left: 5%; top: 16%;" data-popup="primer-stem">
       <span class="s11-leader s11-leader--tr"></span>
       <div class="s11-popup-box">
-        <button class="s11-popup-close" type="button" data-close><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
-        <h3 class="s11-popup-title">Ujung Batang</h3>
-        <p class="s11-popup-desc">Sama seperti akar, di titik tumbuh ujung batang terdapat meristem apikal yang mendorong pembentukan tunas, daun baru, dan membuat tumbuhan semakin tinggi menjulang</p>
+        <button class="s11-popup-close" type="button" data-close>✕</button>
+        <span class="s11-popup-tag">Pertumbuhan Primer</span>
+        <h3 class="s11-popup-title">Meristem Apikal Ujung Batang</h3>
+        <p class="s11-popup-desc">Meristem apikal adalah jaringan yang sel-selnya terus membelah di ujung batang, mendorong pembentukan tunas dan daun baru sehingga tumbuhan terus bertambah tinggi.</p>
       </div>
     </div>
 
-    <button class="s11-hotspot" style="left: 50%; top: 92%; z-index: 10;" type="button" data-hotspot="primer-root">
+    <!-- HOTSPOT BARU: Ujung Akar Primer -->
+    <button class="s11-hotspot" style="left: 50%; bottom: 4%;" type="button" data-hotspot="primer-root">
       <span class="s11-hotspot-ring"></span><span class="s11-hotspot-dot"></span>
     </button>
-    <div class="s11-popup" style="left: 5%; top: 75%; z-index: 9999;" data-popup="primer-root">
-      <span class="s11-leader s11-leader--br"></span>
+    <div class="s11-popup" style="left: 5%; top: 60%;" data-popup="primer-root">
+      <span class="s11-leader s11-leader--bl"></span>
       <div class="s11-popup-box">
-        <button class="s11-popup-close" type="button" data-close><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
-        <h3 class="s11-popup-title">Ujung Akar</h3>
-        <p class="s11-popup-desc">sel-sel aktif (meristem apikal) di ujungnya, akar terus tumbuh memanjang ke dalam tanah untuk mencari air dan jangkar tumbuhan..</p>
+        <button class="s11-popup-close" type="button" data-close>✕</button>
+        <span class="s11-popup-tag">Pertumbuhan Primer</span>
+        <h3 class="s11-popup-title">Ujung Akar Primer</h3>
+        <p class="s11-popup-desc">Meristem apikal pada ujung akar berfungsi menghasilkan sel-sel baru sehingga akar dapat tumbuh memanjang ke dalam tanah. Pertumbuhan ini membantu akar mencari air dan mineral sekaligus memperkuat posisi tumbuhan.</p>
       </div>
     </div>
   </div>
 
-  <!-- ===================== PETAK KANAN: PERTUMBUHAN SEKUNDER ===================== -->
+  <!-- PETAK KANAN: PERTUMBUHAN SEKUNDER -->
   <div class="s11-plot s11-plot--sekunder">
     <span class="s11-plot-label">Pertumbuhan Sekunder</span>
-
     <svg class="s11-svg s11-svg--sekunder" viewBox="0 0 260 420" preserveAspectRatio="xMidYMax meet">
       <defs>
         <linearGradient id="gradTrunkMangga" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8D6E63"/><stop offset="50%" stop-color="#5D4037"/><stop offset="100%" stop-color="#4E342E"/></linearGradient>
         <linearGradient id="gradManggaLeaves" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#66BB6A"/><stop offset="100%" stop-color="#1B5E20"/></linearGradient>
+        <marker id="s11PopArrow2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#4a3018"/></marker>
+        <marker id="s11PopArrow3" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#3f6b1f"/></marker>
       </defs>
       <ellipse cx="130" cy="405" rx="75" ry="10" fill="#1F2D26" opacity="0.12"/>
       <g class="s11-part" data-part="sekunder-batang">
-        <path d="M105,400 Q130,410 155,400" fill="none" stroke="#4E342E" stroke-width="10" stroke-linecap="round"/>
         <path d="M110,400 Q115,300 120,200 L140,200 Q145,300 150,400 Z" fill="url(#gradTrunkMangga)"/>
-        <g fill="none" stroke="url(#gradTrunkMangga)" stroke-linecap="round">
-          <path d="M125,240 L80,180" stroke-width="12"/><path d="M135,240 L180,170" stroke-width="11"/><path d="M130,210 L130,130" stroke-width="10"/>
-        </g>
+        <g fill="none" stroke="url(#gradTrunkMangga)" stroke-linecap="round"><path d="M125,240 L80,180" stroke-width="12"/><path d="M135,240 L180,170" stroke-width="11"/><path d="M130,210 L130,130" stroke-width="10"/></g>
         <g opacity="0.98">
           <ellipse cx="85" cy="170" rx="45" ry="35" fill="#1B5E20"/><ellipse cx="175" cy="160" rx="50" ry="40" fill="#1B5E20"/><ellipse cx="130" cy="100" rx="55" ry="45" fill="#1B5E20"/>
           <path d="M40,170 Q40,120 90,120 Q140,120 140,170 Q140,220 90,220 Q40,220 40,170" fill="url(#gradManggaLeaves)"/><path d="M120,160 Q120,100 175,100 Q230,100 230,160 Q230,220 175,220 Q120,220 120,160" fill="url(#gradManggaLeaves)"/><path d="M80,100 Q80,40 130,40 Q180,40 180,100 Q180,160 130,160 Q80,160 80,100" fill="url(#gradManggaLeaves)"/>
         </g>
       </g>
-      <g class="s11-part" data-part="sekunder-cambium">
-        <rect x="122" y="240" width="16" height="120" rx="8" fill="#FFF176" opacity="0"/>
-        <path d="M125,350 L125,250 M135,350 L135,250" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="4 3" opacity="0.5"/>
-      </g>
     </svg>
 
-    <!-- Hotspot Sekunder (Hanya 2 Titik) -->
-    <button class="s11-hotspot" style="left: 50%; top: 65%; z-index: 10;" type="button" data-hotspot="sekunder-cambium">
+    <!-- Hotspot: Kambium Vaskular -->
+    <button class="s11-hotspot" style="left: 50%; top: 65%;" type="button" data-hotspot="sekunder-cambium">
       <span class="s11-hotspot-ring"></span><span class="s11-hotspot-dot"></span>
     </button>
-    <!-- Pop-up Cambium DI SEBELAH KIRI -->
-    <div class="s11-popup" style="left: 5%; top: 45%; z-index: 9999;" data-popup="sekunder-cambium">
+    <div class="s11-popup" style="left: 55%; top: 30%;" data-popup="sekunder-cambium">
       <span class="s11-leader s11-leader--tr"></span>
       <div class="s11-popup-box">
-        <button class="s11-popup-close" type="button" data-close><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
-        <h3 class="s11-popup-title">Kambium</h3>
-        <p class="s11-popup-desc">Lapisan jaringan aktif di dalam batang yang membelah ke dua arah: ke dalam membentuk kayu (xilem sekunder) dan ke luar membentuk kulit (floem sekunder). Aktivitas pembelahan kambium inilah yang membuat batang pohon makin tebal dan membentuk lingkaran tahun..</p>
+        <button class="s11-popup-close" type="button" data-close>✕</button>
+        <span class="s11-popup-tag" data-variant="sekunder">Pertumbuhan Sekunder</span>
+        <h3 class="s11-popup-title">Anatomi Batang Berkayu</h3>
+        <div class="s11-popup-media">
+          <svg class="s11-popup-illustration" viewBox="0 0 320 240">
+            <circle cx="150" cy="120" r="92" fill="#6E4A2E" stroke="#4a3018" stroke-width="2"/>
+            <circle cx="150" cy="120" r="80" fill="#D98A3D" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+            <circle cx="150" cy="120" r="72" fill="#CE9A6B" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+            <circle cx="150" cy="120" r="59" fill="#8BC34A" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+            <circle cx="150" cy="120" r="51" fill="#E8C79A" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+            <circle cx="150" cy="120" r="19" fill="#F5EAC8"/>
+            <!-- PERBAIKAN: Label digeser ke kiri (x: 25) -->
+            <line x1="50" y1="182" x2="97" y2="145" stroke="#3f6b1f" stroke-width="2" marker-end="url(#s11PopArrow3)"/>
+            <text x="25" y="197" font-size="12" font-weight="700" fill="#3f6b1f">Kambium Vaskular</text>
+            <line x1="228" y1="20" x2="214" y2="65" stroke="#4a3018" stroke-width="2" marker-end="url(#s11PopArrow2)"/>
+            <text x="230" y="16" font-size="12" font-weight="700" fill="#7a4a20">Kambium Gabus</text>
+          </svg>
+        </div>
+        <p class="s11-popup-desc">Kambium vaskular membelah ke arah dalam membentuk xilem dan ke arah luar membentuk floem, menyebabkan batang bertambah besar.</p>
       </div>
     </div>
 
-    <button class="s11-hotspot" style="left: 50%; top: 88%; z-index: 10;" type="button" data-hotspot="sekunder-batang">
+    <!-- HOTSPOT BARU: Kambium Gabus -->
+    <button class="s11-hotspot" style="left: 60%; top: 78%;" type="button" data-hotspot="sekunder-gabus">
       <span class="s11-hotspot-ring"></span><span class="s11-hotspot-dot"></span>
     </button>
-    <!-- Pop-up Batang DI SEBELAH KIRI -->
-    <div class="s11-popup" style="left: 5%; top: 75%; z-index: 9999;" data-popup="sekunder-batang">
-      <span class="s11-leader s11-leader--br"></span>
+    <div class="s11-popup" style="left: 55%; top: 60%;" data-popup="sekunder-gabus">
+      <span class="s11-leader s11-leader--tr"></span>
       <div class="s11-popup-box">
-        <button class="s11-popup-close" type="button" data-close><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
-        <h3 class="s11-popup-title">Batang Berkayu</h3>
-        <p class="s11-popup-desc">Proses pembesaran diameter batang ke arah samping seiring bertambahnya usia pohon, bukan lagi bertambah tinggi.
-.</p>
+        <button class="s11-popup-close" type="button" data-close>✕</button>
+        <span class="s11-popup-tag" data-variant="sekunder">Pertumbuhan Sekunder</span>
+        <h3 class="s11-popup-title">Kambium Gabus (Felogen)</h3>
+        <p class="s11-popup-desc">Kambium gabus atau felogen membentuk jaringan gabus (felem) ke arah luar dan feloderm ke arah dalam. Jaringan gabus berfungsi melindungi batang dari kehilangan air, benturan, serta serangan organisme dari luar.</p>
       </div>
     </div>
 
   </div>
 </div>
+              </div><!-- /.s11-stage -->
 
+            </div><!-- /.s11-columns -->
 
             <div class="hewan-actions s11-actions">
               <button class="btn hewan-btn-secondary" type="button" data-goto="1">
@@ -490,7 +500,7 @@
               <p class="s12-main-desc">
                 Pertumbuhan dan perkembangan tumbuhan dipengaruhi oleh faktor internal dan faktor eksternal.
               </p>
-              
+
               <div class="s12-category-stack">
                 <div class="s12-mini-card">
                   <span class="s12-mini-icon">🧬</span>
@@ -520,7 +530,7 @@
 
             <!-- BAGIAN KANAN (70%) -->
             <div class="s12-visual-area">
-              
+
               <!-- Garis Penghubung (SVG Overlay) -->
               <svg class="s12-lines-overlay" viewBox="0 0 800 600" preserveAspectRatio="none">
                 <g stroke="rgba(46, 125, 70, 0.15)" stroke-width="1.5" fill="none">
